@@ -1,0 +1,1090 @@
+# Translation of Rollout module to Swedish.
+# Copyright (C) 2026 Vertel Sverige AB
+msgid ""
+msgstr ""
+"Project-Id-Version: rollout 18.0.1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-15\n"
+"PO-Revision-Date: 2026-07-15\n"
+"Last-Translator: Vertel Sverige AB <info@vertel.se>\n"
+"Language-Team: Swedish\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_project
+msgid "Rollout Project"
+msgstr "Rollout-projekt"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_phase
+msgid "Rollout Phase (ADKAR)"
+msgstr "Rollout-fas (ADKAR)"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_task
+msgid "Rollout Task"
+msgstr "Rollout-uppgift"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_role
+msgid "Rollout Role"
+msgstr "Rollout-roll"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_risk
+msgid "Rollout Risk"
+msgstr "Rollout-risk"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_scenario
+msgid "Rollout Scenario"
+msgstr "Rollout-scenario"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_sentiment
+msgid "Rollout Sentiment Entry"
+msgstr "Rollout-sentiment"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_nudge
+msgid "Rollout Behavioral Nudge"
+msgstr "Rollout-beteendenudge"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_org_change
+msgid "Organizational Change (Rollout)"
+msgstr "Organisationsförändring (Rollout)"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_competency_target
+msgid "Rollout Competency Target"
+msgstr "Rollout-kompetensmål"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_competency_strategy
+msgid "Competency Strategy"
+msgstr "Kompetensstrategi"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_competency_scenario
+msgid "Competency Scenario Package"
+msgstr "Kompetensscenariepaket"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_plan_review
+msgid "Multi-Dimensional Plan Review"
+msgstr "Flerdimensionell plangranskning"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_plan_review_dimension
+msgid "Review Dimension"
+msgstr "Granskningsdimension"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_plan_review_criterion
+msgid "Review Criterion"
+msgstr "Granskningskriterium"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_portfolio
+msgid "Employee Portfolio (Aggregated CV View)"
+msgstr "Medarbetarportfölj (aggregerad CV-vy)"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_task_template
+msgid "Rollout Task Template"
+msgstr "Rollout-uppgiftsmall"
+
+#. module: rollout
+#: model:ir.model,name:rollout.model_rollout_scenario_phase_adjustment
+msgid "Scenario Phase Duration Adjustment"
+msgstr "Scenariofas justering av varaktighet"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__name
+msgid "Name"
+msgstr "Namn"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__customer_id
+msgid "Customer"
+msgstr "Kund"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__project_manager_id
+msgid "Project Manager"
+msgstr "Projektledare"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__team_member_ids
+msgid "Project Team"
+msgstr "Projektteam"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__sponsor_id
+msgid "Change Sponsor (Customer)"
+msgstr "Förändringssponsor (kund)"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__state
+msgid "State"
+msgstr "Status"
+
+#. module: rollout
+#: selection:rollout.project,state:0
+msgid "Draft"
+msgstr "Utkast"
+
+#. module: rollout
+#: selection:rollout.project,state:0
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: rollout
+#: selection:rollout.project,state:0
+msgid "Completed"
+msgstr "Avslutad"
+
+#. module: rollout
+#: selection:rollout.project,state:0
+msgid "Cancelled"
+msgstr "Avbruten"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__planning_mode
+msgid "Planning Mode"
+msgstr "Planeringsläge"
+
+#. module: rollout
+#: selection:rollout.project,planning_mode:0
+msgid "Forward: Start date → compute go-live"
+msgstr "Framåt: Startdatum → beräkna go-live"
+
+#. module: rollout
+#: selection:rollout.project,planning_mode:0
+msgid "Backward: Go-live date → compute start"
+msgstr "Bakåt: Go-live-datum → beräkna start"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__date_start
+msgid "Start Date"
+msgstr "Startdatum"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__date_launch
+msgid "Go-Live Date"
+msgstr "Go-live-datum"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__phase_ids
+msgid "Phases"
+msgstr "Faser"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__risk_ids
+msgid "Risks"
+msgstr "Risker"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__scenario_ids
+msgid "Scenarios"
+msgstr "Scenarier"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__sentiment_ids
+msgid "Sentiment"
+msgstr "Sentiment"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__nudge_ids
+msgid "Nudges"
+msgstr "Nudges"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__org_change_ids
+msgid "Organizational Changes"
+msgstr "Organisationsförändringar"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__competency_target_ids
+msgid "Competency Targets"
+msgstr "Kompetensmål"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_project__review_ids
+msgid "Plan Reviews"
+msgstr "Plangranskningar"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_phase__adkar_phase
+msgid "ADKAR Phase"
+msgstr "ADKAR-fas"
+
+#. module: rollout
+#: selection:rollout.phase,adkar_phase:0
+msgid "Awareness — Why?"
+msgstr "Awareness — Varför?"
+
+#. module: rollout
+#: selection:rollout.phase,adkar_phase:0
+msgid "Desire — Want to?"
+msgstr "Desire — Vilja?"
+
+#. module: rollout
+#: selection:rollout.phase,adkar_phase:0
+msgid "Knowledge — How to?"
+msgstr "Knowledge — Kunskap?"
+
+#. module: rollout
+#: selection:rollout.phase,adkar_phase:0
+msgid "Ability — Can do?"
+msgstr "Ability — Förmåga?"
+
+#. module: rollout
+#: selection:rollout.phase,adkar_phase:0
+msgid "Reinforcement — Keep doing?"
+msgstr "Reinforcement — Bibehålla?"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_phase__duration_days
+msgid "Duration (Days)"
+msgstr "Varaktighet (dagar)"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_phase__date_start
+msgid "Start Date"
+msgstr "Startdatum"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_phase__date_end
+msgid "End Date"
+msgstr "Slutdatum"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_phase__gate_type
+msgid "Gate Type"
+msgstr "Gate-typ"
+
+#. module: rollout
+#: selection:rollout.phase,gate_type:0
+msgid "No Gate"
+msgstr "Ingen gate"
+
+#. module: rollout
+#: selection:rollout.phase,gate_type:0
+msgid "Approval Required"
+msgstr "Godkännande krävs"
+
+#. module: rollout
+#: selection:rollout.phase,gate_type:0
+msgid "Metric Threshold"
+msgstr "Mätetal uppnått"
+
+#. module: rollout
+#: selection:rollout.phase,gate_type:0
+msgid "All Tasks Complete"
+msgstr "Alla uppgifter klara"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_phase__gate_metric
+msgid "Threshold Value"
+msgstr "Tröskelvärde"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_phase__gate_passed
+msgid "Gate Passed"
+msgstr "Gate passerad"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_phase__task_ids
+msgid "Tasks"
+msgstr "Uppgifter"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_phase__role_ids
+msgid "Roles in this Phase"
+msgstr "Roller i denna fas"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_task__assigned_to
+msgid "Assigned To"
+msgstr "Tilldelad"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_task__date_deadline
+msgid "Deadline"
+msgstr "Deadline"
+
+#. module: rollout
+#: selection:rollout.task,state:0
+msgid "Draft"
+msgstr "Utkast"
+
+#. module: rollout
+#: selection:rollout.task,state:0
+msgid "To Do"
+msgstr "Att göra"
+
+#. module: rollout
+#: selection:rollout.task,state:0
+msgid "In Progress"
+msgstr "Pågående"
+
+#. module: rollout
+#: selection:rollout.task,state:0
+msgid "Done"
+msgstr "Klar"
+
+#. module: rollout
+#: selection:rollout.task,state:0
+msgid "Cancelled"
+msgstr "Avbruten"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_task__description
+msgid "Description"
+msgstr "Beskrivning"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_task__priority
+msgid "Priority"
+msgstr "Prioritet"
+
+#. module: rollout
+#: selection:rollout.task,priority:0
+msgid "Low"
+msgstr "Låg"
+
+#. module: rollout
+#: selection:rollout.task,priority:0
+msgid "Medium"
+msgstr "Medel"
+
+#. module: rollout
+#: selection:rollout.task,priority:0
+msgid "High"
+msgstr "Hög"
+
+#. module: rollout
+#: selection:rollout.task,priority:0
+msgid "Urgent"
+msgstr "Akut"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_role__skill_ids
+msgid "Required Skills"
+msgstr "Obligatoriska kompetenser"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_role__course_ids
+msgid "Required Courses"
+msgstr "Obligatoriska kurser"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_role__badge_ids
+msgid "Required Badges"
+msgstr "Obligatoriska badges"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_role__task_template_ids
+msgid "Task Templates"
+msgstr "Uppgiftsmallar"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_risk__probability
+msgid "Probability"
+msgstr "Sannolikhet"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_risk__impact
+msgid "Impact"
+msgstr "Konsekvens"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_risk__risk_score
+msgid "Risk Score"
+msgstr "Riskpoäng"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_risk__mitigation
+msgid "Mitigation Plan"
+msgstr "Åtgärdsplan"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_risk__trigger_event
+msgid "Trigger Event"
+msgstr "Utlösande händelse"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_risk__owner_id
+msgid "Risk Owner"
+msgstr "Riskägare"
+
+#. module: rollout
+#: selection:rollout.risk,state:0
+msgid "Identified"
+msgstr "Identifierad"
+
+#. module: rollout
+#: selection:rollout.risk,state:0
+msgid "Monitoring"
+msgstr "Bevakas"
+
+#. module: rollout
+#: selection:rollout.risk,state:0
+msgid "Materialized"
+msgstr "Har inträffat"
+
+#. module: rollout
+#: selection:rollout.risk,state:0
+msgid "Mitigated"
+msgstr "Åtgärdad"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_scenario__risk_level
+msgid "Risk Level"
+msgstr "Risknivå"
+
+#. module: rollout
+#: selection:rollout.scenario,risk_level:0
+msgid "Low Risk"
+msgstr "Låg risk"
+
+#. module: rollout
+#: selection:rollout.scenario,risk_level:0
+msgid "Medium Risk"
+msgstr "Medelrisk"
+
+#. module: rollout
+#: selection:rollout.scenario,risk_level:0
+msgid "High Risk"
+msgstr "Hög risk"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_scenario__adoption_estimate
+msgid "Estimated Adoption (%)"
+msgstr "Uppskattad adoption (%)"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_scenario__cost_estimate
+msgid "Estimated Cost"
+msgstr "Uppskattad kostnad"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_scenario__selected
+msgid "Selected Scenario"
+msgstr "Valt scenario"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_sentiment__score
+msgid "Sentiment (1-5)"
+msgstr "Sentiment (1-5)"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_sentiment__free_text
+msgid "Comment"
+msgstr "Kommentar"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_sentiment__ai_hotspot
+msgid "Flagged as Hotspot"
+msgstr "Flagga som hotspot"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_sentiment__ai_category
+msgid "AI Category"
+msgstr "AI-kategori"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_nudge__trigger_event
+msgid "Trigger Event"
+msgstr "Utlösande händelse"
+
+#. module: rollout
+#: selection:rollout.nudge,trigger_event:0
+msgid "Course Completed"
+msgstr "Kurs avklarad"
+
+#. module: rollout
+#: selection:rollout.nudge,trigger_event:0
+msgid "Login Streak Milestone"
+msgstr "Inloggningsstreak"
+
+#. module: rollout
+#: selection:rollout.nudge,trigger_event:0
+msgid "Phase Transition"
+msgstr "Fasövergång"
+
+#. module: rollout
+#: selection:rollout.nudge,trigger_event:0
+msgid "Badge Awarded"
+msgstr "Badge tilldelad"
+
+#. module: rollout
+#: selection:rollout.nudge,trigger_event:0
+msgid "Competency Milestone"
+msgstr "Kompetensmilstolpe"
+
+#. module: rollout
+#: selection:rollout.nudge,trigger_event:0
+msgid "Sentiment Drop"
+msgstr "Sentimentfall"
+
+#. module: rollout
+#: selection:rollout.nudge,trigger_event:0
+msgid "Custom"
+msgstr "Anpassad"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_nudge__nudge_type
+msgid "Nudge Type"
+msgstr "Nudge-typ"
+
+#. module: rollout
+#: selection:rollout.nudge,nudge_type:0
+msgid "Social Proof"
+msgstr "Socialt bevis"
+
+#. module: rollout
+#: selection:rollout.nudge,nudge_type:0
+msgid "Loss Aversion"
+msgstr "Förlustaversion"
+
+#. module: rollout
+#: selection:rollout.nudge,nudge_type:0
+msgid "Default Effect"
+msgstr "StandardeFFekt"
+
+#. module: rollout
+#: selection:rollout.nudge,nudge_type:0
+msgid "Positive Framing"
+msgstr "Positiv inramning"
+
+#. module: rollout
+#: selection:rollout.nudge,nudge_type:0
+msgid "Commitment/Consistency"
+msgstr "Åtagande/Konsekvens"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_nudge__template
+msgid "Message Template"
+msgstr "Meddelandemall"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_org_change__change_type
+msgid "Change Type"
+msgstr "Förändringstyp"
+
+#. module: rollout
+#: selection:rollout.org_change,change_type:0
+msgid "New Department"
+msgstr "Ny avdelning"
+
+#. module: rollout
+#: selection:rollout.org_change,change_type:0
+msgid "Restructure"
+msgstr "Omorganisation"
+
+#. module: rollout
+#: selection:rollout.org_change,change_type:0
+msgid "New Role / Position"
+msgstr "Ny roll / befattning"
+
+#. module: rollout
+#: selection:rollout.org_change,change_type:0
+msgid "Merge"
+msgstr "Sammanslagning"
+
+#. module: rollout
+#: selection:rollout.org_change,change_type:0
+msgid "Split"
+msgstr "Uppdelning"
+
+#. module: rollout
+#: selection:rollout.org_change,change_type:0
+msgid "New Reporting Line"
+msgstr "Ny rapporteringslinje"
+
+#. module: rollout
+#: selection:rollout.org_change,change_type:0
+msgid "Other"
+msgstr "Annat"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_org_change__department_id
+msgid "Department"
+msgstr "Avdelning"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_org_change__job_ids
+msgid "Job Positions"
+msgstr "Befattningar"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_org_change__employee_ids
+msgid "Affected Employees"
+msgstr "Berörda medarbetare"
+
+#. module: rollout
+#: selection:rollout.org_change,status:0
+msgid "Planned"
+msgstr "Planerad"
+
+#. module: rollout
+#: selection:rollout.org_change,status:0
+msgid "In Progress"
+msgstr "Pågående"
+
+#. module: rollout
+#: selection:rollout.org_change,status:0
+msgid "Completed"
+msgstr "Genomförd"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_target__skill_id
+msgid "Skill"
+msgstr "Kompetens"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_target__skill_level_id
+msgid "Required Level"
+msgstr "Krävd nivå"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_target__target_count
+msgid "Target Count"
+msgstr "Målantal"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_target__deadline_date
+msgid "Deadline"
+msgstr "Deadline"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_target__current_count
+msgid "Current Count"
+msgstr "Nuvarande antal"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_target__gap
+msgid "Gap"
+msgstr "Gap"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_target__progress_pct
+msgid "Progress %"
+msgstr "Framsteg %"
+
+#. module: rollout
+#: selection:rollout.competency.target,state:0
+msgid "Planned"
+msgstr "Planerad"
+
+#. module: rollout
+#: selection:rollout.competency.target,state:0
+msgid "In Progress"
+msgstr "Pågående"
+
+#. module: rollout
+#: selection:rollout.competency.target,state:0
+msgid "Achieved"
+msgstr "Uppnådd"
+
+#. module: rollout
+#: selection:rollout.competency.target,state:0
+msgid "At Risk"
+msgstr "Risk att missas"
+
+#. module: rollout
+#: selection:rollout.competency.target,state:0
+msgid "Missed"
+msgstr "Missad"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_strategy__strategy_type
+msgid "Strategy Type"
+msgstr "Strategityp"
+
+#. module: rollout
+#: selection:rollout.competency.strategy,strategy_type:0
+msgid "Internal Reassignment"
+msgstr "Intern omfördelning"
+
+#. module: rollout
+#: selection:rollout.competency.strategy,strategy_type:0
+msgid "External Recruitment"
+msgstr "Extern rekrytering"
+
+#. module: rollout
+#: selection:rollout.competency.strategy,strategy_type:0
+msgid "Training / Development"
+msgstr "Kompetensutveckling"
+
+#. module: rollout
+#: selection:rollout.competency.strategy,strategy_type:0
+msgid "Consultant / Temporary"
+msgstr "Konsult / Inhyrd"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_strategy__planned_count
+msgid "Planned Count"
+msgstr "Planerat antal"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_strategy__achieved_count
+msgid "Achieved Count"
+msgstr "Uppnått antal"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_strategy__cost_per_person
+msgid "Cost per Person"
+msgstr "Kostnad per person"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_strategy__cost_total
+msgid "Total Cost"
+msgstr "Totalkostnad"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_strategy__lead_time_days
+msgid "Lead Time (Days)"
+msgstr "Ledtid (dagar)"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_strategy__job_id
+msgid "Job Posting"
+msgstr "Jobbannons"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_strategy__course_ids
+msgid "Training Courses"
+msgstr "Utbildningskurser"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_strategy__applicant_ids
+msgid "Candidates"
+msgstr "Kandidater"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_scenario__total_cost
+msgid "Total Cost"
+msgstr "Totalkostnad"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_scenario__total_lead_time_days
+msgid "Total Lead Time"
+msgstr "Total ledtid"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_competency_scenario__earliest_completion
+msgid "Earliest Completion"
+msgstr "Tidigast klart"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review__reviewer_id
+msgid "Reviewer"
+msgstr "Granskare"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review__review_date
+msgid "Review Date"
+msgstr "Granskningsdatum"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review__scenario_id
+msgid "Reviewing Scenario"
+msgstr "Granskar scenario"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review__overall_score
+msgid "Overall Score (0-100)"
+msgstr "Totalt betyg (0-100)"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review__overall_rating
+msgid "Overall Rating"
+msgstr "Sammanfattande betyg"
+
+#. module: rollout
+#: selection:rollout.plan.review,overall_rating:0
+msgid "🔴 Critical"
+msgstr "🔴 Kritisk"
+
+#. module: rollout
+#: selection:rollout.plan.review,overall_rating:0
+msgid "🟠 Weak"
+msgstr "🟠 Svag"
+
+#. module: rollout
+#: selection:rollout.plan.review,overall_rating:0
+msgid "🟡 Adequate"
+msgstr "🟡 Godtagbar"
+
+#. module: rollout
+#: selection:rollout.plan.review,overall_rating:0
+msgid "🟢 Strong"
+msgstr "🟢 Stark"
+
+#. module: rollout
+#: selection:rollout.plan.review,overall_rating:0
+msgid "⭐ Excellent"
+msgstr "⭐ Utmärkt"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review__summary
+msgid "Summary"
+msgstr "Sammanfattning"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review__recommendations
+msgid "Recommendations"
+msgstr "Rekommendationer"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review__approved_by_id
+msgid "Approved By"
+msgstr "Godkänd av"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_dimension__dimension
+msgid "Dimension"
+msgstr "Dimension"
+
+#. module: rollout
+#: selection:rollout.plan.review.dimension,dimension:0
+msgid "🧠 Behavioral Science"
+msgstr "🧠 Beteendevetenskap"
+
+#. module: rollout
+#: selection:rollout.plan.review.dimension,dimension:0
+msgid "⚠️ Risk Management"
+msgstr "⚠️ Riskhantering"
+
+#. module: rollout
+#: selection:rollout.plan.review.dimension,dimension:0
+msgid "👥 Competency Planning"
+msgstr "👥 Kompetensplanering"
+
+#. module: rollout
+#: selection:rollout.plan.review.dimension,dimension:0
+msgid "📅 Timeline & Resources"
+msgstr "📅 Tidplan & Resurser"
+
+#. module: rollout
+#: selection:rollout.plan.review.dimension,dimension:0
+msgid "👤 Stakeholders & Communication"
+msgstr "👤 Intressenter & Kommunikation"
+
+#. module: rollout
+#: selection:rollout.plan.review.dimension,dimension:0
+msgid "📋 ISO / Compliance"
+msgstr "📋 ISO / Regelefterlevnad"
+
+#. module: rollout
+#: selection:rollout.plan.review.dimension,dimension:0
+msgid "🏢 Organizational Change"
+msgstr "🏢 Organisationsförändring"
+
+#. module: rollout
+#: selection:rollout.plan.review.dimension,dimension:0
+msgid "💰 Budget & Costs"
+msgstr "💰 Budget & Kostnader"
+
+#. module: rollout
+#: selection:rollout.plan.review.dimension,dimension:0
+msgid "📚 Training & LMS"
+msgstr "📚 Utbildning & LMS"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_dimension__score
+msgid "Score (0-100)"
+msgstr "Betyg (0-100)"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_dimension__strengths
+msgid "Strengths"
+msgstr "Styrkor"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_dimension__weaknesses
+msgid "Weaknesses"
+msgstr "Svagheter"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_dimension__opportunities
+msgid "Opportunities"
+msgstr "Möjligheter"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_dimension__threats
+msgid "Threats"
+msgstr "Hot"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_criterion__name
+msgid "Criterion"
+msgstr "Kriterium"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_criterion__description
+msgid "What to Review"
+msgstr "Vad som ska granskas"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_criterion__score
+msgid "Assessment"
+msgstr "Bedömning"
+
+#. module: rollout
+#: selection:rollout.plan.review.criterion,score:0
+msgid "0 — Completely Missing"
+msgstr "0 — Saknas helt"
+
+#. module: rollout
+#: selection:rollout.plan.review.criterion,score:0
+msgid "1 — Inadequate"
+msgstr "1 — Otillräckligt"
+
+#. module: rollout
+#: selection:rollout.plan.review.criterion,score:0
+msgid "2 — Partially"
+msgstr "2 — Delvis"
+
+#. module: rollout
+#: selection:rollout.plan.review.criterion,score:0
+msgid "3 — Sufficient"
+msgstr "3 — Tillräckligt"
+
+#. module: rollout
+#: selection:rollout.plan.review.criterion,score:0
+msgid "4 — Well Developed"
+msgstr "4 — Väl utvecklat"
+
+#. module: rollout
+#: selection:rollout.plan.review.criterion,score:0
+msgid "5 — Excellent"
+msgstr "5 — Utmärkt"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_criterion__finding
+msgid "Finding / Comment"
+msgstr "Fynd / Kommentar"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_plan_review_criterion__action_required
+msgid "Action Required?"
+msgstr "Kräver åtgärd?"
+
+#. module: rollout
+#: model:ir.model.fields,field_description:rollout.model_rollout_task_template__deadline_days
+msgid "Days After Assignment"
+msgstr "Dagar efter tilldelning"
+
+#. module: rollout
+#: model:ir.actions.act_window,name:rollout.action_rollout_project
+msgid "Rollout Projects"
+msgstr "Rollout-projekt"
+
+#. module: rollout
+#: model:ir.actions.act_window,name:rollout.action_rollout_sentiment
+msgid "Sentiment"
+msgstr "Sentiment"
+
+#. module: rollout
+#: model:ir.actions.act_window,name:rollout.action_rollout_scenario
+msgid "Scenarios"
+msgstr "Scenarier"
+
+#. module: rollout
+#: model:ir.actions.act_window,name:rollout.action_rollout_plan_review
+msgid "Plan Reviews"
+msgstr "Plangranskningar"
+
+#. module: rollout
+#: model:ir.actions.act_window,name:rollout.action_rollout_role
+msgid "Rollout Roles"
+msgstr "Rollout-roller"
+
+#. module: rollout
+#: model:ir.ui.menu,name:rollout.menu_rollout_root
+msgid "Rollout"
+msgstr "Rollout"
+
+#. module: rollout
+#: model:ir.ui.menu,name:rollout.menu_rollout_project
+msgid "Projects"
+msgstr "Projekt"
+
+#. module: rollout
+#: model:ir.ui.menu,name:rollout.menu_rollout_config
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#. module: rollout
+#: model:ir.ui.menu,name:rollout.menu_rollout_role
+msgid "Roles"
+msgstr "Roller"
+
+#. module: rollout
+#: model:ir.ui.menu,name:rollout.menu_rollout_review
+msgid "Plan Reviews"
+msgstr "Plangranskningar"
+
+#. module: rollout
+#: model:ir.ui.menu,name:rollout.menu_rollout_sentiment
+msgid "Sentiment"
+msgstr "Sentiment"
+
+#. module: rollout
+#: model:ir.ui.menu,name:rollout.menu_rollout_scenario
+msgid "Scenarios"
+msgstr "Scenarier"
+
+#. module: rollout
+#: model:ir.model.fields,help:rollout.model_rollout_role__skill_ids
+msgid "Skills required for this role in the rollout"
+msgstr "Kompetenser som krävs för denna roll i rollouten"
+
+#. module: rollout
+#: model:ir.model.fields,help:rollout.model_rollout_role__course_ids
+msgid "LMS courses required for this role"
+msgstr "LMS-kurser som krävs för denna roll"
+
+#. module: rollout
+#: model:ir.model.fields,help:rollout.model_rollout_role__badge_ids
+msgid "Gamification badges required for this role"
+msgstr "Gamification-badges som krävs för denna roll"
+
+#. module: rollout
+#: model:ir.model.fields,help:rollout.model_rollout_sentiment__score
+msgid "1 = Very negative, 5 = Very positive"
+msgstr "1 = Mycket negativ, 5 = Mycket positiv"
+
+#. module: rollout
+#: model:ir.model.fields,help:rollout.model_rollout_sentiment__ai_hotspot
+msgid "AI analysis flagged this as a potential concern"
+msgstr "AI-analys flaggade detta som en potentiell risk"
+
+#. module: rollout
+#: model:ir.model.fields,help:rollout.model_rollout_nudge__template
+msgid "Use placeholders: {user}, {role}, {phase}, {course_name}, {badge_name}, {streak_days}, {team_progress}"
+msgstr "Använd platshållare: {user}, {role}, {phase}, {course_name}, {badge_name}, {streak_days}, {team_progress}"
+
+#. module: rollout
+#: model:ir.model.fields,help:rollout.model_rollout_competency_target__current_count
+msgid "Number of employees with this skill at this level"
+msgstr "Antal medarbetare med denna kompetens på denna nivå"
+
+#. module: rollout
+#: model:ir.model.fields,help:rollout.model_rollout_competency_target__progress_pct
+msgid "current_count / target_count * 100"
+msgstr "nuvarande_antal / målantal * 100"
+
+#. module: rollout
+#: code:addons/rollout/models/rollout_nudge.py:0
+msgid "Template rendering failed, using raw template"
+msgstr "Mallrendering misslyckades, använder rå mall"

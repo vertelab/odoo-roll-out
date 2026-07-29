@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ================================================================
+             DEMO: Vertel Sverige AB — Odoo 18 Rollout
+             ================================================================ -->
+
+        <!-- Demo Roles -->
+        <record id="demo_role_crm" model="rollout.role">
+            <field name="name">CRM-användare</field>
+            <field name="description">
+                <![CDATA[
+                <p>Daglig användare av Odoo CRM. Hanterar leads, möjligheter, och kundkontakter.</p>
+                <p><strong>Arbetsuppgifter:</strong></p>
+                <ul>
+                    <li>Skapa och kvalificera leads</li>
+                    <li>Hantera säljpipeline</li>
+                    <li>Skicka offerter</li>
+                    <li>Logga kundmöten och samtal</li>
+                </ul>
+                ]]>
+            </field>
+        </record>
+
+        <record id="demo_role_accounting" model="rollout.role">
+            <field name="name">Ekonomichef</field>
+            <field name="description">
+                <![CDATA[
+                <p>Ansvarig för ekonomi och redovisning i Odoo.</p>
+                <p><strong>Arbetsuppgifter:</strong></p>
+                <ul>
+                    <li>Kund- och leverantörsreskontra</li>
+                    <li>Bankavstämning</li>
+                    <li>Momsredovisning</li>
+                    <li>Månads- och årsbokslut</li>
+                </ul>
+                ]]>
+            </field>
+        </record>
+
+        <record id="demo_role_manufacturing" model="rollout.role">
+            <field name="name">Produktionsplanerare</field>
+            <field name="description">
+                <![CDATA[
+                <p>Planerar och följer upp tillverkning i Odoo Manufacturing.</p>
+                <p><strong>Arbetsuppgifter:</strong></p>
+                <ul>
+                    <li>Skapa tillverkningsordrar</li>
+                    <li>Planera produktionsschema</li>
+                    <li>Hantera materialbehov (MRP)</li>
+                    <li>Kvalitetskontroll</li>
+                </ul>
+                ]]>
+            </field>
+        </record>
+
+        <record id="demo_role_manager" model="rollout.role">
+            <field name="name">Avdelningschef</field>
+            <field name="description">
+                <![CDATA[
+                <p>Chef med personalansvar. Använder Odoo för teamöversikt och godkännanden.</p>
+                ]]>
+            </field>
+        </record>
+
+        <!-- ================================================================
+             Demo Project
+             ================================================================ -->
+
+        <record id="demo_project" model="rollout.project">
+            <field name="name">Odoo 18 — Vertel Sverige AB</field>
+            <field name="customer_id" ref="base.main_partner"/>
+            <field name="state">draft</field>
+            <field name="planning_mode">backward</field>
+            <field name="date_launch">2026-10-01</field>
+        </record>
+
+        <!-- ================================================================
+             Demo Phases (Backward from 2026-10-01)
+             ================================================================ -->
+
+        <record id="demo_phase_awareness" model="rollout.phase">
+            <field name="project_id" ref="demo_project"/>
+            <field name="name">Awareness — Varför Odoo?</field>
+            <field name="adkar_phase">awareness</field>
+            <field name="sequence">10</field>
+            <field name="duration_days">14</field>
+            <field name="gate_type">metric</field>
+            <field name="gate_metric">80</field>
+            <field name="role_ids" eval="[(6, 0, [ref('demo_role_crm'), ref('demo_role_accounting'), ref('demo_role_manufacturing'), ref('demo_role_manager')])]"/>
+        </record>
+
+        <record id="demo_phase_desire" model="rollout.phase">
+            <field name="project_id" ref="demo_project"/>
+            <field name="name">Desire — Skapa engagemang</field>
+            <field name="adkar_phase">desire</field>
+            <field name="sequence">20</field>
+            <field name="duration_days">21</field>
+            <field name="gate_type">completion</field>
+        </record>
+
+        <record id="demo_phase_knowledge" model="rollout.phase">
+            <field name="project_id" ref="demo_project"/>
+            <field name="name">Knowledge — Utbildning</field>
+            <field name="adkar_phase">knowledge</field>
+            <field name="sequence">30</field>
+            <field name="duration_days">30</field>
+            <field name="gate_type">completion</field>
+        </record>
+
+        <record id="demo_phase_ability" model="rollout.phase">
+            <field name="project_id" ref="demo_project"/>
+            <field name="name">Ability — Praktisk tillämpning</field>
+            <field name="adkar_phase">ability</field>
+            <field name="sequence">40</field>
+            <field name="duration_days">14</field>
+            <field name="gate_type">approval</field>
+        </record>
+
+        <record id="demo_phase_reinforcement" model="rollout.phase">
+            <field name="project_id" ref="demo_project"/>
+            <field name="name">Reinforcement — Bibehålla förändringen</field>
+            <field name="adkar_phase">reinforcement</field>
+            <field name="sequence">50</field>
+            <field name="duration_days">90</field>
+            <field name="gate_type">none</field>
+        </record>
+
+        <!-- ================================================================
+             Demo Tasks
+             ================================================================ -->
+
+        <!-- Awareness tasks -->
+        <record id="demo_task_aw_01" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_awareness"/>
+            <field name="name">Presentera business case för ledningsgruppen</field>
+            <field name="priority">3</field>
+            <field name="date_deadline" eval="time.strftime('2026-09-01')"/>
+        </record>
+        <record id="demo_task_aw_02" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_awareness"/>
+            <field name="name">Skicka ut informationsmail till alla anställda</field>
+            <field name="priority">2</field>
+        </record>
+        <record id="demo_task_aw_03" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_awareness"/>
+            <field name="name">Håll stormöte: "Vår digitala resa"</field>
+            <field name="priority">2</field>
+        </record>
+
+        <!-- Desire tasks -->
+        <record id="demo_task_de_01" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_desire"/>
+            <field name="name">Identifiera Odoo-ambassadörer per avdelning</field>
+            <field name="priority">3</field>
+        </record>
+        <record id="demo_task_de_02" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_desire"/>
+            <field name="name">Visa demo av Odoo CRM för säljteamet</field>
+            <field name="priority">2</field>
+        </record>
+
+        <!-- Knowledge tasks -->
+        <record id="demo_task_kn_01" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_knowledge"/>
+            <field name="name">CRM Fundamentals — kurs för säljare</field>
+            <field name="priority">3</field>
+            <field name="role_id" ref="demo_role_crm"/>
+        </record>
+        <record id="demo_task_kn_02" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_knowledge"/>
+            <field name="name">Odoo Accounting Basics — kurs för ekonomiavdelningen</field>
+            <field name="priority">3</field>
+            <field name="role_id" ref="demo_role_accounting"/>
+        </record>
+        <record id="demo_task_kn_03" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_knowledge"/>
+            <field name="name">Manufacturing Introduction — kurs för produktion</field>
+            <field name="priority">3</field>
+            <field name="role_id" ref="demo_role_manufacturing"/>
+        </record>
+
+        <!-- Ability tasks -->
+        <record id="demo_task_ab_01" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_ability"/>
+            <field name="name">Skapa första offerten i Odoo CRM</field>
+            <field name="priority">3</field>
+            <field name="role_id" ref="demo_role_crm"/>
+        </record>
+        <record id="demo_task_ab_02" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_ability"/>
+            <field name="name">Genomför första månadsbokslutet i Odoo</field>
+            <field name="priority">3</field>
+            <field name="role_id" ref="demo_role_accounting"/>
+        </record>
+        <record id="demo_task_ab_03" model="rollout.task">
+            <field name="phase_id" ref="demo_phase_ability"/>
+            <field name="name">Go/No-Go beslut: Är vi redo för go-live?</field>
+            <field name="priority">3</field>
+        </record>
+
+        <!-- ================================================================
+             Demo Risks
+             ================================================================ -->
+
+        <record id="demo_risk_01" model="rollout.risk">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_knowledge"/>
+            <field name="name">Nyckelperson slutar under utbildningsfasen</field>
+            <field name="description">Risken att en person med kritisk kompetens lämnar företaget under Knowledge-fasen.</field>
+            <field name="probability">3</field>
+            <field name="impact">4</field>
+            <field name="mitigation">Säkerställ att minst två personer per roll genomgår utbildning. Dokumentera all kunskap.</field>
+            <field name="trigger_event">Medarbetare säger upp sig</field>
+            <field name="state">identified</field>
+        </record>
+
+        <record id="demo_risk_02" model="rollout.risk">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_ability"/>
+            <field name="name">Data-migrering misslyckas vid go-live</field>
+            <field name="description">Historisk data från gamla systemet kan inte migreras korrekt till Odoo.</field>
+            <field name="probability">2</field>
+            <field name="impact">5</field>
+            <field name="mitigation">Genomför testmigrering 30 dagar före go-live. Ha backup-plan med manuell inmatning för kritiska data.</field>
+            <field name="trigger_event">Testmigrering visar &gt;5% datadiskrepans</field>
+            <field name="state">monitoring</field>
+        </record>
+
+        <record id="demo_risk_03" model="rollout.risk">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_awareness"/>
+            <field name="name">Lågt engagemang från mellanchefer</field>
+            <field name="description">Mellanchefer ser Odoo som ett hot mot sin position och motarbetar införandet.</field>
+            <field name="probability">4</field>
+            <field name="impact">3</field>
+            <field name="mitigation">Identifiera chefer tidigt. Ge dem en aktiv roll som ambassadörer. Visa hur Odoo underlättar deras arbete.</field>
+            <field name="trigger_event">Chef uttrycker öppet motstånd på möte</field>
+            <field name="state">monitoring</field>
+        </record>
+
+        <!-- ================================================================
+             Demo Competency Targets
+             ================================================================ -->
+
+        <record id="demo_target_01" model="rollout.competency.target">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_knowledge"/>
+            <field name="role_id" ref="demo_role_crm"/>
+            <field name="name">CRM — 3 personer med CRM Fundamentals nivå 2</field>
+            <field name="skill_name">Odoo CRM Fundamentals</field>
+            <field name="target_count">3</field>
+            <field name="deadline_date">2026-09-01</field>
+        </record>
+
+        <record id="demo_target_02" model="rollout.competency.target">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_knowledge"/>
+            <field name="role_id" ref="demo_role_accounting"/>
+            <field name="name">Ekonomi — 2 personer med Odoo Accounting nivå 3</field>
+            <field name="skill_name">Odoo Accounting</field>
+            <field name="target_count">2</field>
+            <field name="deadline_date">2026-09-15</field>
+        </record>
+
+        <record id="demo_target_03" model="rollout.competency.target">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_knowledge"/>
+            <field name="role_id" ref="demo_role_manufacturing"/>
+            <field name="name">Tillverkning — 3 personer med Manufacturing nivå 2</field>
+            <field name="skill_name">Odoo Manufacturing</field>
+            <field name="target_count">3</field>
+            <field name="deadline_date">2026-09-01</field>
+        </record>
+
+        <!-- ================================================================
+             Demo Sentiment Entries
+             ================================================================ -->
+
+        <record id="demo_sentiment_01" model="rollout.sentiment">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_awareness"/>
+            <field name="score">4</field>
+            <field name="free_text">Spännande att vi äntligen ska få ett modernt system!</field>
+        </record>
+
+        <record id="demo_sentiment_02" model="rollout.sentiment">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_awareness"/>
+            <field name="score">3</field>
+            <field name="free_text">Lite orolig för hur mycket tid utbildningen kommer ta.</field>
+        </record>
+
+        <record id="demo_sentiment_03" model="rollout.sentiment">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_awareness"/>
+            <field name="score">2</field>
+            <field name="free_text">Vi har ju redan ett system som fungerar. Varför byta?</field>
+            <field name="ai_hotspot" eval="True"/>
+            <field name="ai_category">Motstånd</field>
+        </record>
+
+        <!-- ================================================================
+             Demo Nudges
+             ================================================================ -->
+
+        <record id="demo_nudge_01" model="rollout.nudge">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_desire"/>
+            <field name="name">Social proof: kursgenomförande</field>
+            <field name="trigger_event">course_completed</field>
+            <field name="nudge_type">social_proof</field>
+            <field name="template">Bra jobbat {user}! 7 av 10 kollegor har redan klarat {course_name}. Du ligger i framkant!</field>
+        </record>
+
+        <record id="demo_nudge_02" model="rollout.nudge">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_knowledge"/>
+            <field name="name">Loss aversion: missad deadline</field>
+            <field name="trigger_event">phase_transition</field>
+            <field name="nudge_type">loss_aversion</field>
+            <field name="template">{user}, du har bara {streak_days} dagar kvar att slutföra dina kurser innan nästa fas börjar. Missa inte chansen att ligga steget före!</field>
+        </record>
+
+        <record id="demo_nudge_03" model="rollout.nudge">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_reinforcement"/>
+            <field name="name">Commitment: 30 dagars streak</field>
+            <field name="trigger_event">login_streak</field>
+            <field name="nudge_type">commitment</field>
+            <field name="template">Imponerande {user}! Du har använt Odoo i {streak_days} dagar i rad. Du är en sann Odoo-mästare!</field>
+        </record>
+
+        <!-- ================================================================
+             Demo Org Changes
+             ================================================================ -->
+
+        <record id="demo_org_change_01" model="rollout.org_change">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_ability"/>
+            <field name="name">Ny roll: Odoo-systemadministratör</field>
+            <field name="change_type">new_role</field>
+            <field name="description">Skapa en ny intern roll för löpande Odoo-administration efter go-live.</field>
+            <field name="status">planned</field>
+        </record>
+
+        <record id="demo_org_change_02" model="rollout.org_change">
+            <field name="project_id" ref="demo_project"/>
+            <field name="phase_id" ref="demo_phase_ability"/>
+            <field name="name">CRM-teamet rapporterar till COO</field>
+            <field name="change_type">reporting</field>
+            <field name="description">I och med Odoo-införandet flyttas CRM-teamets rapporteringslinje från Försäljningschef till COO.</field>
+            <field name="status">planned</field>
+        </record>
+
+        <!-- ================================================================
+             Demo Scenarios
+             ================================================================ -->
+
+        <record id="demo_scenario_01" model="rollout.scenario">
+            <field name="project_id" ref="demo_project"/>
+            <field name="name">Scenario A: Normal takt (baseline)</field>
+            <field name="description">Standardplanen med rekommenderade faslängder.</field>
+            <field name="risk_level">low</field>
+            <field name="adoption_estimate">85</field>
+            <field name="cost_estimate">250000</field>
+            <field name="selected" eval="True"/>
+        </record>
+
+        <record id="demo_scenario_02" model="rollout.scenario">
+            <field name="project_id" ref="demo_project"/>
+            <field name="name">Scenario B: Accelererad</field>
+            <field name="description">Komprimerad plan för snabbare go-live. Högre risk.</field>
+            <field name="override_date_launch">2026-08-01</field>
+            <field name="risk_level">high</field>
+            <field name="adoption_estimate">65</field>
+            <field name="cost_estimate">350000</field>
+        </record>
+
+        <record id="demo_scenario_03" model="rollout.scenario">
+            <field name="project_id" ref="demo_project"/>
+            <field name="name">Scenario C: Förlängd utbildning</field>
+            <field name="description">Extra tid för utbildning. Högre adoptionsgrad men senare go-live.</field>
+            <field name="override_date_launch">2026-12-01</field>
+            <field name="risk_level">low</field>
+            <field name="adoption_estimate">95</field>
+            <field name="cost_estimate">300000</field>
+        </record>
+
+    </data>
+</odoo>

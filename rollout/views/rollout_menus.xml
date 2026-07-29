@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Top-level menu -->
+    <menuitem id="menu_rollout_root"
+              name="Rollout"
+              sequence="90"
+              web_icon="rollout,static/description/icon.png"/>
+
+    <menuitem id="menu_rollout_project"
+              name="Projects"
+              parent="menu_rollout_root"
+              action="action_rollout_project"
+              sequence="10"/>
+
+    <menuitem id="menu_rollout_config"
+              name="Configuration"
+              parent="menu_rollout_root"
+              sequence="90"/>
+
+    <menuitem id="menu_rollout_role"
+              name="Roles"
+              parent="menu_rollout_config"
+              action="action_rollout_role"
+              sequence="10"/>
+
+    <menuitem id="menu_rollout_review"
+              name="Plan Reviews"
+              parent="menu_rollout_root"
+              action="action_rollout_plan_review"
+              sequence="20"/>
+
+    <menuitem id="menu_rollout_sentiment"
+              name="Sentiment"
+              parent="menu_rollout_root"
+              action="action_rollout_sentiment"
+              sequence="30"/>
+
+    <menuitem id="menu_rollout_scenario"
+              name="Scenarios"
+              parent="menu_rollout_root"
+              action="action_rollout_scenario"
+              sequence="40"/>
+</odoo>

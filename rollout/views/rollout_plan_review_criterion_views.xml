@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_plan_review_criterion_tree" model="ir.ui.view">
+        <field name="name">rollout.plan.review.criterion.tree</field>
+        <field name="model">rollout.plan.review.criterion</field>
+        <field name="arch" type="xml">
+            <list string="Criteria" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="score"/>
+                <field name="action_required" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Portfolio view is a client action template -->
+    <record id="view_rollout_portfolio_template" model="ir.ui.view">
+        <field name="name">rollout.portfolio.view</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Odoo Portfolio" name="rollout_portfolio">
+                    <group string="Adoption Summary" name="adoption_group">
+                        <label string="Portfolio data is available through the Rollout Portfolio API."/>
+                        <label string="Use rollout.portfolio.get_employee_portfolio() to retrieve structured data."/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

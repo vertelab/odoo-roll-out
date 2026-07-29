@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_competency_strategy_form" model="ir.ui.view">
+        <field name="name">rollout.competency.strategy.form</field>
+        <field name="model">rollout.competency.strategy</field>
+        <field name="arch" type="xml">
+            <form string="Competency Strategy">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="strategy_type"/>
+                    </group>
+                    <group string="Targets">
+                        <field name="planned_count"/>
+                        <field name="achieved_count"/>
+                        <field name="lead_time_days"/>
+                    </group>
+                    <group string="Cost">
+                        <field name="cost_per_person" widget="monetary"/>
+                        <field name="cost_total" widget="monetary"/>
+                    </group>
+                    <group string="Links">
+                                                <field name="course_name"/>
+                                            </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

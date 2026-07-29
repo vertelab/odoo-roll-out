@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_task_kanban" model="ir.ui.view">
+        <field name="name">rollout.task.kanban</field>
+        <field name="model">rollout.task</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="assigned_to"/>
+                <field name="date_deadline"/>
+                <field name="priority"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_content">
+                                <strong><field name="name"/></strong>
+                                <div>
+                                    <field name="state" widget="badge"/>
+                                </div>
+                                <div class="text-muted">
+                                    <field name="assigned_to"/>
+                                </div>
+                                <div>
+                                    <field name="date_deadline" widget="remaining_days"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_rollout_task_tree" model="ir.ui.view">
+        <field name="name">rollout.task.tree</field>
+        <field name="model">rollout.task</field>
+        <field name="arch" type="xml">
+            <list string="Tasks" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="assigned_to"/>
+                <field name="state" widget="badge"/>
+                <field name="date_deadline"/>
+                <field name="priority"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_task_form" model="ir.ui.view">
+        <field name="name">rollout.task.form</field>
+        <field name="model">rollout.task</field>
+        <field name="arch" type="xml">
+            <form string="Task">
+                <header>
+                    <button name="action_start" type="object" string="Start"
+                            invisible="state != 'todo'" class="btn-primary"/>
+                    <button name="action_done" type="object" string="Done"
+                            invisible="state not in ('todo', 'in_progress')" class="btn-success"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="phase_id"/>
+                        <field name="role_id"/>
+                    </group>
+                    <group>
+                        <field name="assigned_to"/>
+                        <field name="date_deadline"/>
+                        <field name="priority"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+</odoo>

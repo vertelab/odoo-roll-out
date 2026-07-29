@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_org_change_tree" model="ir.ui.view">
+        <field name="name">rollout.org_change.tree</field>
+        <field name="model">rollout.org_change</field>
+        <field name="arch" type="xml">
+            <list string="Organizational Changes">
+                <field name="name"/>
+                <field name="change_type"/>
+                <field name="status" widget="badge"/>
+                <field name="phase_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_org_change_form" model="ir.ui.view">
+        <field name="name">rollout.org_change.form</field>
+        <field name="model">rollout.org_change</field>
+        <field name="arch" type="xml">
+            <form string="Organizational Change">
+                <header>
+                    <button name="action_start" type="object" string="Start"
+                            invisible="status != 'planned'" class="btn-primary"/>
+                    <button name="action_done" type="object" string="Complete"
+                            invisible="status != 'in_progress'" class="btn-success"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="change_type"/>
+                        <field name="project_id"/>
+                        <field name="phase_id"/>
+                    </group>
+                    <group string="References">
+                                                                                            </group>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+</odoo>

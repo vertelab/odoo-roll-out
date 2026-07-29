@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Behavioral Science (8 criteria) -->
+        <record id="criterion_behavioral_01" model="rollout.plan.review.criterion">
+            <field name="name">ADKAR completeness</field>
+            <field name="description">Are all five ADKAR phases represented in the plan?</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="criterion_behavioral_02" model="rollout.plan.review.criterion">
+            <field name="name">Behavioral nudges</field>
+            <field name="description">Are behavioral nudges defined for each phase?</field>
+            <field name="sequence">2</field>
+        </record>
+        <record id="criterion_behavioral_03" model="rollout.plan.review.criterion">
+            <field name="name">Social proof usage</field>
+            <field name="description">Are ambassadors/influencers identified and utilized?</field>
+            <field name="sequence">3</field>
+        </record>
+        <record id="criterion_behavioral_04" model="rollout.plan.review.criterion">
+            <field name="name">Cognitive load management</field>
+            <field name="description">Is training chunked into manageable segments?</field>
+            <field name="sequence">4</field>
+        </record>
+        <record id="criterion_behavioral_05" model="rollout.plan.review.criterion">
+            <field name="name">Gamification presence</field>
+            <field name="description">Are badges, challenges, and leaderboards planned?</field>
+            <field name="sequence">5</field>
+        </record>
+        <record id="criterion_behavioral_06" model="rollout.plan.review.criterion">
+            <field name="name">Quick wins identified</field>
+            <field name="description">Are early successes identified and communicated?</field>
+            <field name="sequence">6</field>
+        </record>
+        <record id="criterion_behavioral_07" model="rollout.plan.review.criterion">
+            <field name="name">Sentiment tracking planned</field>
+            <field name="description">Is pulse measurement scheduled in the plan?</field>
+            <field name="sequence">7</field>
+        </record>
+        <record id="criterion_behavioral_08" model="rollout.plan.review.criterion">
+            <field name="name">Feedback loops</field>
+            <field name="description">Are there loops for user feedback and plan adjustment?</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <!-- Risk Management (6 criteria) -->
+        <record id="criterion_risk_01" model="rollout.plan.review.criterion">
+            <field name="name">Risk register completeness</field>
+            <field name="description">Are risks identified and documented in the register?</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="criterion_risk_02" model="rollout.plan.review.criterion">
+            <field name="name">Probability and impact scoring</field>
+            <field name="description">Are risks correctly assessed with probability (1-5) and impact (1-5)?</field>
+            <field name="sequence">11</field>
+        </record>
+        <record id="criterion_risk_03" model="rollout.plan.review.criterion">
+            <field name="name">Mitigation plans</field>
+            <field name="description">Do top risks have concrete mitigation plans?</field>
+            <field name="sequence">12</field>
+        </record>
+        <record id="criterion_risk_04" model="rollout.plan.review.criterion">
+            <field name="name">Trigger events defined</field>
+            <field name="description">Are trigger events defined for each risk?</field>
+            <field name="sequence">13</field>
+        </record>
+        <record id="criterion_risk_05" model="rollout.plan.review.criterion">
+            <field name="name">Risk ownership</field>
+            <field name="description">Does each risk have an assigned owner?</field>
+            <field name="sequence">14</field>
+        </record>
+        <record id="criterion_risk_06" model="rollout.plan.review.criterion">
+            <field name="name">Continuous monitoring</field>
+            <field name="description">Is there a process for ongoing risk monitoring?</field>
+            <field name="sequence">15</field>
+        </record>
+
+        <!-- Competency Planning (7 criteria) -->
+        <record id="criterion_comp_01" model="rollout.plan.review.criterion">
+            <field name="name">Competency targets defined</field>
+            <field name="description">Are competency targets defined per role?</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="criterion_comp_02" model="rollout.plan.review.criterion">
+            <field name="name">Current state mapped</field>
+            <field name="description">Are current competency levels assessed?</field>
+            <field name="sequence">21</field>
+        </record>
+        <record id="criterion_comp_03" model="rollout.plan.review.criterion">
+            <field name="name">Strategies for each gap</field>
+            <field name="description">Are internal/external/training strategies defined for each gap?</field>
+            <field name="sequence">22</field>
+        </record>
+        <record id="criterion_comp_04" model="rollout.plan.review.criterion">
+            <field name="name">Scenario evaluation</field>
+            <field name="description">Have alternative competency scenarios been evaluated?</field>
+            <field name="sequence">23</field>
+        </record>
+        <record id="criterion_comp_05" model="rollout.plan.review.criterion">
+            <field name="name">Lead time realism</field>
+            <field name="description">Are lead times realistic compared to deadlines?</field>
+            <field name="sequence">24</field>
+        </record>
+        <record id="criterion_comp_06" model="rollout.plan.review.criterion">
+            <field name="name">Budget allocation</field>
+            <field name="description">Are recruitment and training costs budgeted?</field>
+            <field name="sequence">25</field>
+        </record>
+        <record id="criterion_comp_07" model="rollout.plan.review.criterion">
+            <field name="name">Progress tracking</field>
+            <field name="description">Is there a process for tracking progress against targets?</field>
+            <field name="sequence">26</field>
+        </record>
+
+        <!-- Timeline & Resources (6 criteria) -->
+        <record id="criterion_timeline_01" model="rollout.plan.review.criterion">
+            <field name="name">Phase duration realism</field>
+            <field name="description">Are phase durations realistic?</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="criterion_timeline_02" model="rollout.plan.review.criterion">
+            <field name="name">Dependency mapping</field>
+            <field name="description">Are dependencies between phases mapped?</field>
+            <field name="sequence">31</field>
+        </record>
+        <record id="criterion_timeline_03" model="rollout.plan.review.criterion">
+            <field name="name">Time buffer</field>
+            <field name="description">Is there a time buffer for unforeseen events?</field>
+            <field name="sequence">32</field>
+        </record>
+        <record id="criterion_timeline_04" model="rollout.plan.review.criterion">
+            <field name="name">Staffing adequacy</field>
+            <field name="description">Is staffing sufficient for each phase?</field>
+            <field name="sequence">33</field>
+        </record>
+        <record id="criterion_timeline_05" model="rollout.plan.review.criterion">
+            <field name="name">Go/no-go decision points</field>
+            <field name="description">Are there clear go/no-go decision milestones?</field>
+            <field name="sequence">34</field>
+        </record>
+        <record id="criterion_timeline_06" model="rollout.plan.review.criterion">
+            <field name="name">Absence planning</field>
+            <field name="description">Are vacations and holidays accounted for?</field>
+            <field name="sequence">35</field>
+        </record>
+
+        <!-- Stakeholders & Communication (5 criteria) -->
+        <record id="criterion_stakeholder_01" model="rollout.plan.review.criterion">
+            <field name="name">Stakeholder map</field>
+            <field name="description">Are all stakeholders identified?</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="criterion_stakeholder_02" model="rollout.plan.review.criterion">
+            <field name="name">Communication plan</field>
+            <field name="description">Is there a communication plan per stakeholder group?</field>
+            <field name="sequence">41</field>
+        </record>
+        <record id="criterion_stakeholder_03" model="rollout.plan.review.criterion">
+            <field name="name">Change sponsor engagement</field>
+            <field name="description">Is the customer change sponsor identified and active?</field>
+            <field name="sequence">42</field>
+        </record>
+        <record id="criterion_stakeholder_04" model="rollout.plan.review.criterion">
+            <field name="name">Resistance mapped</field>
+            <field name="description">Has potential resistance been mapped?</field>
+            <field name="sequence">43</field>
+        </record>
+        <record id="criterion_stakeholder_05" model="rollout.plan.review.criterion">
+            <field name="name">Feedback channels</field>
+            <field name="description">Are there channels for employees to express concerns?</field>
+            <field name="sequence">44</field>
+        </record>
+
+        <!-- ISO / Compliance (5 criteria) -->
+        <record id="criterion_iso_01" model="rollout.plan.review.criterion">
+            <field name="name">Clause coverage</field>
+            <field name="description">Are relevant ISO clauses addressed?</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="criterion_iso_02" model="rollout.plan.review.criterion">
+            <field name="name">Policy alignment</field>
+            <field name="description">Is the rollout linked to organizational policies?</field>
+            <field name="sequence">51</field>
+        </record>
+        <record id="criterion_iso_03" model="rollout.plan.review.criterion">
+            <field name="name">Gap analysis completed</field>
+            <field name="description">Has an ISO gap analysis been conducted?</field>
+            <field name="sequence">52</field>
+        </record>
+        <record id="criterion_iso_04" model="rollout.plan.review.criterion">
+            <field name="name">Documentation process</field>
+            <field name="description">Is there a process for documenting the change?</field>
+            <field name="sequence">53</field>
+        </record>
+        <record id="criterion_iso_05" model="rollout.plan.review.criterion">
+            <field name="name">Audit planning</field>
+            <field name="description">Is a follow-up audit planned?</field>
+            <field name="sequence">54</field>
+        </record>
+
+        <!-- Organizational Change (5 criteria) -->
+        <record id="criterion_org_01" model="rollout.plan.review.criterion">
+            <field name="name">Change map</field>
+            <field name="description">Are all organizational changes documented?</field>
+            <field name="sequence">60</field>
+        </record>
+        <record id="criterion_org_02" model="rollout.plan.review.criterion">
+            <field name="name">Staffing plan</field>
+            <field name="description">Is there a plan for new/changed roles?</field>
+            <field name="sequence">61</field>
+        </record>
+        <record id="criterion_org_03" model="rollout.plan.review.criterion">
+            <field name="name">Reporting lines</field>
+            <field name="description">Are new reporting lines defined?</field>
+            <field name="sequence">62</field>
+        </record>
+        <record id="criterion_org_04" model="rollout.plan.review.criterion">
+            <field name="name">Union / labor engagement</field>
+            <field name="description">Have labor unions or work councils been informed?</field>
+            <field name="sequence">63</field>
+        </record>
+        <record id="criterion_org_05" model="rollout.plan.review.criterion">
+            <field name="name">Transition plan</field>
+            <field name="description">Is there a plan for parallel operation/cutover?</field>
+            <field name="sequence">64</field>
+        </record>
+
+        <!-- Budget & Costs (5 criteria) -->
+        <record id="criterion_budget_01" model="rollout.plan.review.criterion">
+            <field name="name">Overall budget</field>
+            <field name="description">Is there an overall budget for the rollout?</field>
+            <field name="sequence">70</field>
+        </record>
+        <record id="criterion_budget_02" model="rollout.plan.review.criterion">
+            <field name="name">Cost breakdown</field>
+            <field name="description">Are costs broken down by phase and category?</field>
+            <field name="sequence">71</field>
+        </record>
+        <record id="criterion_budget_03" model="rollout.plan.review.criterion">
+            <field name="name">ROI projection</field>
+            <field name="description">Is there a return-on-investment projection?</field>
+            <field name="sequence">72</field>
+        </record>
+        <record id="criterion_budget_04" model="rollout.plan.review.criterion">
+            <field name="name">Contingency fund</field>
+            <field name="description">Is there a budget contingency for unexpected costs?</field>
+            <field name="sequence">73</field>
+        </record>
+        <record id="criterion_budget_05" model="rollout.plan.review.criterion">
+            <field name="name">Cost tracking</field>
+            <field name="description">Is there a process for tracking actual vs budgeted costs?</field>
+            <field name="sequence">74</field>
+        </record>
+
+        <!-- Training & LMS (5 criteria) -->
+        <record id="criterion_training_01" model="rollout.plan.review.criterion">
+            <field name="name">Training needs analysis</field>
+            <field name="description">Has a training needs analysis been completed?</field>
+            <field name="sequence">80</field>
+        </record>
+        <record id="criterion_training_02" model="rollout.plan.review.criterion">
+            <field name="name">Role-based curriculum</field>
+            <field name="description">Are there defined curricula per role?</field>
+            <field name="sequence">81</field>
+        </record>
+        <record id="criterion_training_03" model="rollout.plan.review.criterion">
+            <field name="name">Content readiness</field>
+            <field name="description">Is training content created and reviewed?</field>
+            <field name="sequence">82</field>
+        </record>
+        <record id="criterion_training_04" model="rollout.plan.review.criterion">
+            <field name="name">Certification path</field>
+            <field name="description">Are there defined certification paths with assessments?</field>
+            <field name="sequence">83</field>
+        </record>
+        <record id="criterion_training_05" model="rollout.plan.review.criterion">
+            <field name="name">Ongoing learning</field>
+            <field name="description">Is there a plan for continuous learning post-go-live?</field>
+            <field name="sequence">84</field>
+        </record>
+
+    </data>
+</odoo>

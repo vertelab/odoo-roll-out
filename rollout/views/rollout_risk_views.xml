@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_risk_tree" model="ir.ui.view">
+        <field name="name">rollout.risk.tree</field>
+        <field name="model">rollout.risk</field>
+        <field name="arch" type="xml">
+            <list string="Risks" decoration-danger="risk_score &gt;= 15"
+                  decoration-warning="risk_score &gt;= 8 and risk_score &lt; 15">
+                <field name="name"/>
+                <field name="risk_score"/>
+                <field name="probability"/>
+                <field name="impact"/>
+                <field name="state" widget="badge"/>
+                <field name="owner_id"/>
+                <field name="phase_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_risk_form" model="ir.ui.view">
+        <field name="name">rollout.risk.form</field>
+        <field name="model">rollout.risk</field>
+        <field name="arch" type="xml">
+            <form string="Risk">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_id"/>
+                        <field name="phase_id"/>
+                    </group>
+                    <group string="Scoring">
+                        <field name="probability"/>
+                        <field name="impact"/>
+                        <field name="risk_score"/>
+                    </group>
+                    <group string="Management">
+                        <field name="owner_id"/>
+                        <field name="trigger_event"/>
+                    </group>
+                    <group string="Mitigation Plan">
+                        <field name="mitigation"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+</odoo>

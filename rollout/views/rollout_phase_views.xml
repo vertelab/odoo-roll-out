@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_phase_tree" model="ir.ui.view">
+        <field name="name">rollout.phase.tree</field>
+        <field name="model">rollout.phase</field>
+        <field name="arch" type="xml">
+            <list string="Phases" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="adkar_phase"/>
+                <field name="duration_days"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="gate_type"/>
+                <field name="gate_passed" widget="boolean_toggle"/>
+                <field name="task_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_phase_form" model="ir.ui.view">
+        <field name="name">rollout.phase.form</field>
+        <field name="model">rollout.phase</field>
+        <field name="arch" type="xml">
+            <form string="Phase">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="adkar_phase"/>
+                        <field name="duration_days"/>
+                        <field name="project_id"/>
+                    </group>
+                    <group string="Timeline">
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    <group string="Gate">
+                        <field name="gate_type"/>
+                        <field name="gate_metric"
+                               invisible="gate_type != 'metric'"/>
+                        <field name="gate_passed"/>
+                    </group>
+                    <group string="Roles">
+                        <field name="role_ids" widget="many2many_tags"/>
+                    </group>
+                    <separator string="Tasks"/>
+                    <field name="task_ids"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

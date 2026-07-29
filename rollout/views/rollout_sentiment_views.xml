@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_sentiment_kanban" model="ir.ui.view">
+        <field name="name">rollout.sentiment.kanban</field>
+        <field name="model">rollout.sentiment</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="user_id"/>
+                <field name="score"/>
+                <field name="free_text"/>
+                <field name="ai_hotspot"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card">
+                            <div class="oe_kanban_content">
+                                <strong><field name="user_id"/></strong>
+                                <div>Score: <field name="score"/> / 5</div>
+                                <div class="text-muted"><field name="free_text"/></div>
+                                <div>
+                                    <field name="ai_hotspot" widget="boolean_toggle"
+                                           invisible="ai_hotspot == False"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_rollout_sentiment_tree" model="ir.ui.view">
+        <field name="name">rollout.sentiment.tree</field>
+        <field name="model">rollout.sentiment</field>
+        <field name="arch" type="xml">
+            <list string="Sentiment">
+                <field name="user_id"/>
+                <field name="score"/>
+                <field name="ai_hotspot"/>
+                <field name="create_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_sentiment_form" model="ir.ui.view">
+        <field name="name">rollout.sentiment.form</field>
+        <field name="model">rollout.sentiment</field>
+        <field name="arch" type="xml">
+            <form string="Sentiment Entry">
+                <sheet>
+                    <group>
+                        <field name="user_id"/>
+                        <field name="project_id"/>
+                        <field name="phase_id"/>
+                    </group>
+                    <group>
+                        <field name="score"/>
+                        <field name="ai_hotspot"/>
+                        <field name="ai_category"/>
+                    </group>
+                    <group string="Comment">
+                        <field name="free_text"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rollout_sentiment" model="ir.actions.act_window">
+        <field name="name">Sentiment</field>
+        <field name="res_model">rollout.sentiment</field>
+        <field name="view_mode">kanban,list,form,pivot,graph</field>
+    </record>
+</odoo>

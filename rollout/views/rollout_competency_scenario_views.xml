@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_competency_scenario_tree" model="ir.ui.view">
+        <field name="name">rollout.competency.scenario.tree</field>
+        <field name="model">rollout.competency.scenario</field>
+        <field name="arch" type="xml">
+            <list string="Competency Scenarios">
+                <field name="name"/>
+                <field name="total_cost" widget="monetary"/>
+                <field name="total_lead_time_days"/>
+                <field name="earliest_completion"/>
+                <field name="risk_level"/>
+                <field name="selected" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_competency_scenario_form" model="ir.ui.view">
+        <field name="name">rollout.competency.scenario.form</field>
+        <field name="model">rollout.competency.scenario</field>
+        <field name="arch" type="xml">
+            <form string="Competency Scenario">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_id"/>
+                        <field name="selected"/>
+                    </group>
+                    <group string="Summary">
+                        <field name="total_cost" widget="monetary"/>
+                        <field name="total_lead_time_days"/>
+                        <field name="earliest_completion"/>
+                        <field name="risk_level"/>
+                    </group>
+                    <group string="Description">
+                        <field name="description"/>
+                    </group>
+                    <separator string="Strategies"/>
+                    <field name="strategy_ids"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

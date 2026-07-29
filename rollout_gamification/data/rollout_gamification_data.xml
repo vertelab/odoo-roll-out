@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ADKAR Phase Badges -->
+        <record id="badge_awareness" model="gamification.badge">
+            <field name="name">Visionär — Awareness</field>
+            <field name="description">Slutförde Awareness-fasen: förstår varför Odoo införs.</field>
+            <field name="level">bronze</field>
+        </record>
+        <record id="badge_desire" model="gamification.badge">
+            <field name="name">Motiverad — Desire</field>
+            <field name="description">Slutförde Desire-fasen: aktivt engagerad i förändringen.</field>
+            <field name="level">bronze</field>
+        </record>
+        <record id="badge_knowledge" model="gamification.badge">
+            <field name="name">Kunnig — Knowledge</field>
+            <field name="description">Slutförde Knowledge-fasen: genomfört alla kurser med godkänt resultat.</field>
+            <field name="level">silver</field>
+        </record>
+        <record id="badge_ability" model="gamification.badge">
+            <field name="name">Självgående — Ability</field>
+            <field name="description">Slutförde Ability-fasen: arbetar självständigt i Odoo.</field>
+            <field name="level">silver</field>
+        </record>
+        <record id="badge_reinforcement" model="gamification.badge">
+            <field name="name">Förankrad — Reinforcement</field>
+            <field name="description">Slutförde Reinforcement-fasen: förändringen är bestående.</field>
+            <field name="level">gold</field>
+        </record>
+
+        <!-- Skill Achievement Badges -->
+        <record id="badge_skill_level1" model="gamification.badge">
+            <field name="name">Kompetens — Nivå 1</field>
+            <field name="description">Uppnådde en ny kompetens på grundnivå.</field>
+            <field name="level">bronze</field>
+        </record>
+        <record id="badge_skill_level2" model="gamification.badge">
+            <field name="name">Kompetens — Nivå 2</field>
+            <field name="description">Uppnådde en ny kompetens på mellannivå.</field>
+            <field name="level">silver</field>
+        </record>
+        <record id="badge_skill_level3" model="gamification.badge">
+            <field name="name">Kompetens — Nivå 3</field>
+            <field name="description">Uppnådde en ny kompetens på avancerad nivå.</field>
+            <field name="level">gold</field>
+        </record>
+
+        <!-- Streak Badges -->
+        <record id="badge_streak_7" model="gamification.badge">
+            <field name="name">7-dagars Odoo-streak</field>
+            <field name="description">Loggade in i Odoo 7 dagar i rad.</field>
+            <field name="level">bronze</field>
+        </record>
+        <record id="badge_streak_30" model="gamification.badge">
+            <field name="name">30-dagars Odoo-streak</field>
+            <field name="description">Loggade in i Odoo 30 dagar i rad.</field>
+            <field name="level">silver</field>
+        </record>
+        <record id="badge_streak_90" model="gamification.badge">
+            <field name="name">90-dagars Odoo-streak</field>
+            <field name="description">Loggade in i Odoo 90 dagar i rad — mästare!</field>
+            <field name="level">gold</field>
+        </record>
+
+        <!-- Rollout Challenges -->
+        <record id="challenge_first_login_week" model="gamification.challenge">
+            <field name="name">Första veckan i Odoo</field>
+            <field name="description">Logga in i Odoo varje dag under din första vecka.</field>
+            <field name="period">once</field>
+            <field name="reward_first_id" ref="badge_streak_7"/>
+        </record>
+
+        <record id="challenge_course_completion" model="gamification.challenge">
+            <field name="name">Kursracet</field>
+            <field name="description">Var först i ditt team att slutföra alla rollout-kurser.</field>
+            <field name="period">once</field>
+            <field name="reward_first_id" ref="badge_knowledge"/>
+        </record>
+
+    </data>
+</odoo>

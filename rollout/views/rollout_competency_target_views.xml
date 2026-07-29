@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_competency_target_tree" model="ir.ui.view">
+        <field name="name">rollout.competency.target.tree</field>
+        <field name="model">rollout.competency.target</field>
+        <field name="arch" type="xml">
+            <list string="Competency Targets" decoration-danger="state == 'missed'"
+                  decoration-warning="state == 'at_risk'" decoration-success="state == 'achieved'">
+                <field name="name"/>
+                <field name="skill_name"/>
+                <field name="target_count"/>
+                <field name="current_count"/>
+                <field name="gap"/>
+                <field name="progress_pct" widget="progressbar"/>
+                <field name="state" widget="badge"/>
+                <field name="deadline_date"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_competency_target_form" model="ir.ui.view">
+        <field name="name">rollout.competency.target.form</field>
+        <field name="model">rollout.competency.target</field>
+        <field name="arch" type="xml">
+            <form string="Competency Target">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_id"/>
+                        <field name="phase_id"/>
+                        <field name="role_id"/>
+                    </group>
+                    <group string="Target">
+                        <field name="skill_name"/>                        <field name="target_count"/>
+                        <field name="deadline_date"/>
+                    </group>
+                    <group string="Progress">
+                        <field name="current_count"/>
+                        <field name="gap"/>
+                        <field name="progress_pct" widget="progressbar"/>
+                    </group>
+                    <separator string="Strategies"/>
+                    <field name="strategy_ids"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+</odoo>
