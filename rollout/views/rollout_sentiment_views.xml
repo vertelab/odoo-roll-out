@@ -10,7 +10,7 @@
                 <field name="free_text"/>
                 <field name="ai_hotspot"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_card">
                             <div class="oe_kanban_content">
                                 <strong><field name="user_id"/></strong>
