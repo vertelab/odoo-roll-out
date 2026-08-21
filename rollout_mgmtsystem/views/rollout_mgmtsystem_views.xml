@@ -20,7 +20,7 @@
         <field name="model">rollout.phase</field>
         <field name="inherit_id" ref="rollout.view_rollout_phase_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//sheet//group[@name]" position="after">
+            <xpath expr="//sheet/group[1]" position="after">
                 <group string="ISO / Management System">
                     <field name="mgmt_clause_ids" widget="many2many_tags"/>
                     <field name="mgmt_policy_id"/>
