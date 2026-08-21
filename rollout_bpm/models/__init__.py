@@ -3,3 +3,4 @@
 
 from . import bpm_workflow
 from . import rollout_project
+from . import bpm_instance
