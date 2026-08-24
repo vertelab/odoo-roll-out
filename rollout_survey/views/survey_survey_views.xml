@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Header button: generate sentiment entries from completed inputs -->
+    <record id="view_survey_form_rollout_button" model="ir.ui.view">
+        <field name="name">survey.survey.form.rollout.button</field>
+        <field name="model">survey.survey</field>
+        <field name="inherit_id" ref="survey.survey_survey_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_generate_sentiment" type="object"
+                        string="Generate Sentiment"
+                        class="btn-secondary"
+                        invisible="not rollout_project_id or not rollout_active"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Rollout / OBMS page on the survey form -->
+    <record id="view_survey_form_rollout_page" model="ir.ui.view">
+        <field name="name">survey.survey.form.rollout.page</field>
+        <field name="model">survey.survey</field>
+        <field name="inherit_id" ref="survey.survey_survey_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Rollout / OBMS" name="rollout_obms">
+                    <group>
+                        <group>
+                            <field name="rollout_project_id"
+                                   options="{'no_create': True}"/>
+                            <field name="rollout_phase_id"
+                                   domain="[('project_id', '=', rollout_project_id)]"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="rollout_survey_type"/>
+                            <field name="rollout_dimension"/>
+                            <field name="rollout_wave"/>
+                            <field name="rollout_active"/>
+                        </group>
+                    </group>
+                    <div class="text-muted">
+                        Scale questions (1-5) become sentiment scores; text
+                        questions become comments. Press "Generate Sentiment"
+                        to create idempotent rollout.sentiment entries from
+                        completed inputs.
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

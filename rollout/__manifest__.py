@@ -1,6 +1,6 @@
 {
     "name": "Rollout",
-    "version": "18.0.1.1.0",
+    "version": "18.0.1.2.0",
     "category": "Project",
     "summary": "Behavioral science-driven organizational change management for Odoo implementations",
     "description": """
@@ -42,6 +42,9 @@ rollout_hr_evaluation, rollout_ai).
         "views/rollout_nudge_views.xml",
         "views/rollout_portfolio_views.xml",
         "views/menu_views.xml",
+    ],
+    "demo": [
+        "data/keyse_demo.xml",
     ],
     "assets": {},
     "installable": True,

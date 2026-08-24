@@ -30,4 +30,15 @@
         <field name="interval_type">days</field>
         <field name="active">True</field>
     </record>
+
+    <!-- Cron: AI sentiment hotspot analysis (daily) -->
+    <record id="cron_rollout_sentiment_ai" model="ir.cron">
+        <field name="name">Rollout AI: Sentiment Hotspots</field>
+        <field name="model_id" ref="rollout.model_rollout_project"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_analyze_sentiment_hotspots()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
 </odoo>

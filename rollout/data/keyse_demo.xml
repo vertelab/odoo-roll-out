@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ============================================================ -->
+        <!-- Key.se-style rollout demo: OBMS baseline -> ADKAR -> TTT      -->
+        <!-- ============================================================ -->
+
+        <!-- Demo customer -->
+        <record id="demo_keyse_customer" model="res.partner">
+            <field name="name">Exempelkund AB</field>
+            <field name="is_company">True</field>
+        </record>
+
+        <!-- Project: backward planning from go-live -->
+        <record id="demo_keyse_project" model="rollout.project">
+            <field name="name">Odoo 18 Implementering — Key.se-metoden (demo)</field>
+            <field name="customer_id" ref="demo_keyse_customer"/>
+            <field name="manager_id" ref="base.user_root"/>
+            <field name="perspective">external</field>
+            <field name="planning_mode">backward</field>
+            <field name="date_launch">2026-12-31</field>
+            <field name="state">active</field>
+        </record>
+
+        <!-- ADKAR phases with gates (Key.se mapping) -->
+        <record id="demo_keyse_phase_awareness" model="rollout.phase">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="sequence">10</field>
+            <field name="name">Awareness — Syfte &amp; Nuläge (OBMS)</field>
+            <field name="adkar_phase">awareness</field>
+            <field name="duration_days">21</field>
+            <field name="gate_type">approval</field>
+        </record>
+        <record id="demo_keyse_phase_desire" model="rollout.phase">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="sequence">20</field>
+            <field name="name">Desire — Beteenden &amp; Engagemang (Key: Behaviour)</field>
+            <field name="adkar_phase">desire</field>
+            <field name="duration_days">28</field>
+            <field name="gate_type">metric</field>
+            <field name="gate_metric">75.0</field>
+        </record>
+        <record id="demo_keyse_phase_knowledge" model="rollout.phase">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="sequence">30</field>
+            <field name="name">Knowledge — Train the Trainer</field>
+            <field name="adkar_phase">knowledge</field>
+            <field name="duration_days">42</field>
+            <field name="gate_type">completion</field>
+        </record>
+        <record id="demo_keyse_phase_ability" model="rollout.phase">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="sequence">40</field>
+            <field name="name">Ability — Frihet under ansvar</field>
+            <field name="adkar_phase">ability</field>
+            <field name="duration_days">35</field>
+            <field name="gate_type">metric</field>
+            <field name="gate_metric">80.0</field>
+        </record>
+        <record id="demo_keyse_phase_reinforcement" model="rollout.phase">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="sequence">50</field>
+            <field name="name">Reinforcement — Cascading responsibility</field>
+            <field name="adkar_phase">reinforcement</field>
+            <field name="duration_days">30</field>
+            <field name="gate_type">approval</field>
+        </record>
+
+        <!-- Risks (Tough love: nuläge -> önskat läge -> hinder) -->
+        <record id="demo_keyse_risk_1" model="rollout.risk">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_awareness"/>
+            <field name="name">Lågt engagemang i ledningsgruppen</field>
+            <field name="probability">3</field>
+            <field name="impact">4</field>
+            <field name="state">monitoring</field>
+            <field name="mitigation">Reason of Existence-workshop med sponsor;
+                månatlig syftesdialog på ledningsmöten.</field>
+            <field name="trigger_event">Sentiment (structure) &lt; 3 i baseline</field>
+            <field name="owner_id" ref="base.user_root"/>
+        </record>
+        <record id="demo_keyse_risk_2" model="rollout.risk">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_knowledge"/>
+            <field name="name">Kompetensbrist internt — för få handledare</field>
+            <field name="probability">4</field>
+            <field name="impact">3</field>
+            <field name="state">identified</field>
+            <field name="mitigation">Train the Trainer-certifiering; konsultstöd
+                som fallback via kompetensstrategi.</field>
+        </record>
+        <record id="demo_keyse_risk_3" model="rollout.risk">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_reinforcement"/>
+            <field name="name">Förändringströtthet efter go-live</field>
+            <field name="probability">3</field>
+            <field name="impact">4</field>
+            <field name="state">identified</field>
+            <field name="mitigation">Endline-pulsmätning + reinforcement-nudges;
+                cascading responsibility på Jaget/Laget/Företaget.</field>
+        </record>
+
+        <!-- Organizational changes -->
+        <record id="demo_keyse_org_1" model="rollout.org.change">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_awareness"/>
+            <field name="name">Ny Odoo-supportavdelning</field>
+            <field name="change_type">new_dept</field>
+            <field name="state">planned</field>
+            <field name="description">Supportfunktion bemannad av certifierade
+                interna handledare (Train the Trainer).</field>
+        </record>
+        <record id="demo_keyse_org_2" model="rollout.org.change">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_knowledge"/>
+            <field name="name">Förändrad rapportstruktur</field>
+            <field name="change_type">reporting</field>
+            <field name="state">planned</field>
+            <field name="description">Ny rapporteringslinje för superusers och
+                processägare efter go-live.</field>
+        </record>
+
+        <!-- Behavioral nudges (Key: Behaviour) -->
+        <record id="demo_keyse_nudge_social" model="rollout.nudge">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_awareness"/>
+            <field name="name">Ambassadörer visar vägen</field>
+            <field name="sequence">10</field>
+            <field name="trigger_event">phase_transition</field>
+            <field name="nudge_type">social_proof</field>
+            <field name="template">Hej {user}! Redan {team_progress}% av ditt
+                team har gått syftesworkshopen. Dina kollegor {role} är igång —
+                hoppa på du också.</field>
+        </record>
+        <record id="demo_keyse_nudge_loss" model="rollout.nudge">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_desire"/>
+            <field name="name">Missa inte förenklingen</field>
+            <field name="sequence">20</field>
+            <field name="trigger_event">custom</field>
+            <field name="nudge_type">loss_aversion</field>
+            <field name="template">Hej {user}, efter go-live försvinner de
+                manuella rapporterna. Den som inte gått utbildningen riskerar
+                dubbelarbete — boka in din kursplats nu.</field>
+        </record>
+        <record id="demo_keyse_nudge_intention" model="rollout.nudge">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_ability"/>
+            <field name="name">Sätt datum för första praktikuppgiften</field>
+            <field name="sequence">40</field>
+            <field name="trigger_event">competency_milestone</field>
+            <field name="nudge_type">implementation_intention</field>
+            <field name="template">Hej {user}! Du har nått nivån i {course_name}.
+                Bokför in när du kör din första riktiga order — implementation
+                intentions gör att du faktiskt kommer igång.</field>
+        </record>
+        <record id="demo_keyse_nudge_default" model="rollout.nudge">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_reinforcement"/>
+            <field name="name">Standardmöte i kalendern</field>
+            <field name="sequence">50</field>
+            <field name="trigger_event">phase_transition</field>
+            <field name="nudge_type">default_effect</field>
+            <field name="template">Hej {user}! Ditt månatliga uppföljningsmöte
+                är förbokat — avboka bara om du verkligen måste.</field>
+        </record>
+
+        <!-- Competency targets (Train the trainer / Frihet under ansvar) -->
+        <record id="demo_keyse_target_ttt" model="rollout.competency.target">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_knowledge"/>
+            <field name="name">Certifierade interna handledare</field>
+            <field name="level">Nivå 3</field>
+            <field name="target_count">5</field>
+            <field name="deadline">2026-10-15</field>
+        </record>
+        <record id="demo_keyse_target_superuser" model="rollout.competency.target">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_ability"/>
+            <field name="name">Superusers i varje avdelning</field>
+            <field name="level">Nivå 4</field>
+            <field name="target_count">3</field>
+            <field name="deadline">2026-11-30</field>
+        </record>
+
+        <!-- OBMS sentiment pulses: baseline (nuläge) vs midline (under resan) -->
+        <record id="demo_keyse_sent_01" model="rollout.sentiment">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_awareness"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="score">2</field>
+            <field name="dimension">structure</field>
+            <field name="wave">baseline</field>
+            <field name="comment">Otydligt vem som äger processerna och vilka
+                rapporter som gäller.</field>
+        </record>
+        <record id="demo_keyse_sent_02" model="rollout.sentiment">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_awareness"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="score">3</field>
+            <field name="dimension">culture</field>
+            <field name="wave">baseline</field>
+            <field name="comment">Stämningen är okej men det känns förvirrande
+                med alla förändringar på en gång.</field>
+        </record>
+        <record id="demo_keyse_sent_03" model="rollout.sentiment">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_awareness"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="score">2</field>
+            <field name="dimension">behavior</field>
+            <field name="wave">baseline</field>
+            <field name="comment">Många sitter kvar med gamla manuella rutiner,
+                krångligt att byta arbetssätt.</field>
+        </record>
+        <record id="demo_keyse_sent_04" model="rollout.sentiment">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_desire"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="score">4</field>
+            <field name="dimension">structure</field>
+            <field name="wave">midline</field>
+            <field name="comment">Nu ser vi värdet — processerna börjar bli
+                tydliga efter syftesarbetet.</field>
+        </record>
+        <record id="demo_keyse_sent_05" model="rollout.sentiment">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="phase_id" ref="demo_keyse_phase_desire"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="score">3</field>
+            <field name="dimension">culture</field>
+            <field name="wave">midline</field>
+            <field name="comment">Bättre, men fortfarande stressigt i
+                ekonomi-teamet — de hinner inte med.</field>
+        </record>
+
+        <!-- Plan review criteria (small demo set) + readiness review -->
+        <record id="demo_keyse_criterion_1" model="rollout.plan.review.criteria">
+            <field name="name">Beteendevetenskaplig förankring</field>
+            <field name="dimension">change</field>
+            <field name="sequence">10</field>
+            <field name="description">Är ADKAR, nudges och pulsmätning planerade?</field>
+            <field name="max_score">5</field>
+        </record>
+        <record id="demo_keyse_criterion_2" model="rollout.plan.review.criteria">
+            <field name="name">Kompetens &amp; utbildning</field>
+            <field name="dimension">competency</field>
+            <field name="sequence">20</field>
+            <field name="description">Train the Trainer och superusers planerade?</field>
+            <field name="max_score">5</field>
+        </record>
+        <record id="demo_keyse_criterion_3" model="rollout.plan.review.criteria">
+            <field name="name">Riskregister</field>
+            <field name="dimension">risk</field>
+            <field name="sequence">30</field>
+            <field name="description">Risks med sannolikhet × impact och mitigationsplaner?</field>
+            <field name="max_score">5</field>
+        </record>
+
+        <record id="demo_keyse_review" model="rollout.plan.review">
+            <field name="project_id" ref="demo_keyse_project"/>
+            <field name="reviewer_id" ref="base.user_root"/>
+            <field name="review_date">2026-09-01</field>
+        </record>
+        <record id="demo_keyse_review_score_1" model="rollout.plan.review.criteria.score">
+            <field name="review_id" ref="demo_keyse_review"/>
+            <field name="criteria_id" ref="demo_keyse_criterion_1"/>
+            <field name="score">4</field>
+            <field name="justification">ADKAR-faser, nudges och pulsmätning finns.</field>
+        </record>
+        <record id="demo_keyse_review_score_2" model="rollout.plan.review.criteria.score">
+            <field name="review_id" ref="demo_keyse_review"/>
+            <field name="criteria_id" ref="demo_keyse_criterion_2"/>
+            <field name="score">3</field>
+            <field name="justification">TTT-plan finns men antalet handledare är tight.</field>
+        </record>
+        <record id="demo_keyse_review_score_3" model="rollout.plan.review.criteria.score">
+            <field name="review_id" ref="demo_keyse_review"/>
+            <field name="criteria_id" ref="demo_keyse_criterion_3"/>
+            <field name="score">5</field>
+            <field name="justification">Register med score, ägare och triggers.</field>
+        </record>
+
+    </data>
+</odoo>

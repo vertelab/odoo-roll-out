@@ -88,7 +88,16 @@
                             <field name="risk_ids"/>
                         </page>
                         <page string="Sentiment">
-                            <field name="sentiment_ids"/>
+                            <field name="sentiment_ids">
+                                <list editable="bottom">
+                                    <field name="create_date"/>
+                                    <field name="user_id"/>
+                                    <field name="dimension"/>
+                                    <field name="wave"/>
+                                    <field name="score" widget="priority"/>
+                                    <field name="comment"/>
+                                </list>
+                            </field>
                         </page>
                         <page string="Nudges">
                             <field name="nudge_ids"/>
@@ -104,11 +113,7 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter/>
             </form>
         </field>
     </record>

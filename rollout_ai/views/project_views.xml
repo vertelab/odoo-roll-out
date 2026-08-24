@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Header button: run AI sentiment hotspot detection -->
+    <record id="view_rollout_project_form_ai" model="ir.ui.view">
+        <field name="name">rollout.project.form.ai</field>
+        <field name="model">rollout.project</field>
+        <field name="inherit_id" ref="rollout.view_rollout_project_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_analyze_sentiment" type="object"
+                        string="Analyze Sentiment (AI)"
+                        class="btn-secondary"
+                        invisible="state not in ('draft', 'active')"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

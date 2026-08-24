@@ -1,7 +1,13 @@
-"""AI Sentiment Analysis — LLM hotspot detection for rollout sentiment comments."""
+"""AI Sentiment Analysis - LLM hotspot detection for rollout sentiment comments.
+
+Uses ai.coworker.run() as the LLM bridge (ai_agent_core). Falls back to
+keyword-based detection when no coworker/agent is available or the LLM call
+fails, so the module degrades gracefully.
+"""
 
 import json
 import logging
+import re
 
 from odoo import models, fields, api
 
@@ -18,7 +24,8 @@ class RolloutSentimentAI(models.AbstractModel):
 
         Returns list of hotspot dicts: {department, topic, confidence, phrases}
         """
-        comments = project.sentiment_ids.filtered(lambda s: s.comment)
+        comments = project.sentiment_ids.filtered(
+            lambda s: s.comment and not s.hotspot_detected)
         if len(comments) < 3:
             return []
 
@@ -31,9 +38,13 @@ class RolloutSentimentAI(models.AbstractModel):
 
     @api.model
     def _llm_detect_hotspots(self, project, comments):
-        """Use LLM to detect sentiment hotspots."""
+        """Use ai.coworker.run() (ai_agent_core) to detect sentiment hotspots."""
         try:
-            llm = self.env['ai.llm']
+            coworker = self.env['ai.coworker'].search(
+                [('active', '=', True)], limit=1)
+            if not coworker:
+                _logger.info("rollout_ai: no ai.coworker found, keyword fallback")
+                return self._keyword_detect_hotspots(comments)
         except KeyError:
             return self._keyword_detect_hotspots(comments)
 
@@ -44,27 +55,32 @@ class RolloutSentimentAI(models.AbstractModel):
 
         prompt = (
             f"Analyze these sentiment comments from a rollout project "
-            f"and identify any hotspots — departments, topics, or roles "
+            f"and identify any hotspots - departments, topics, or roles "
             f"with declining or negative sentiment patterns.\n\n"
             f"Project: {project.name}\n\n"
             f"Comments:\n{comment_text[:3000]}\n\n"
-            f"Return JSON: {{\n"
+            f"Return JSON only:\n"
+            f"{{\n"
             f'  "hotspots": [\n'
             f'    {{"department": "...", "topic": "...", '
             f'"confidence": 0.0-1.0, "phrases": ["..."]}}\n'
             f'  ]\n'
-            f'}}\n'
+            f"}}\n"
         )
 
         try:
-            result = llm.call(prompt)
-            data = json.loads(result) if isinstance(result, str) else result
-            hotspots = data.get('hotspots', [])
+            result = coworker.run(prompt=prompt)
+            if not result:
+                _logger.info("rollout_ai: empty coworker response, keyword fallback")
+                return self._keyword_detect_hotspots(comments)
 
-            # Update sentiment records
+            data = self._parse_json_response(result)
+            if not data or not isinstance(data, dict):
+                return self._keyword_detect_hotspots(comments)
+
+            hotspots = data.get('hotspots', []) or []
             for hotspot in hotspots:
                 if hotspot.get('confidence', 0) >= 0.5:
-                    # Flag matching sentiment entries
                     matching = comments.filtered(
                         lambda c: any(
                             phrase.lower() in (c.comment or '').lower()
@@ -77,11 +93,31 @@ class RolloutSentimentAI(models.AbstractModel):
                         'hotspot_topic': hotspot.get('topic', ''),
                         'hotspot_confidence': hotspot.get('confidence', 0.0),
                     })
-
             return hotspots
         except Exception as e:
             _logger.warning("rollout_ai: LLM call failed: %s", e)
             return self._keyword_detect_hotspots(comments)
+
+    @api.model
+    def _parse_json_response(self, result):
+        """Robustly extract JSON from LLM output (handles markdown fences)."""
+        text = str(result).strip()
+        # Strip markdown code fences
+        fence = re.search(r'```(?:json)?\s*(.*?)```', text, re.S)
+        if fence:
+            text = fence.group(1).strip()
+        try:
+            return json.loads(text)
+        except (ValueError, TypeError):
+            pass
+        # Fall back to the first balanced {...} block
+        match = re.search(r'\{.*\}', text, re.S)
+        if match:
+            try:
+                return json.loads(match.group(0))
+            except (ValueError, TypeError):
+                pass
+        return None
 
     @api.model
     def _keyword_detect_hotspots(self, comments):
@@ -91,13 +127,13 @@ class RolloutSentimentAI(models.AbstractModel):
             'jobbigt', 'krångligt', 'otydligt', 'stressigt',
             'förstår inte', 'hjälp', 'problem',
         ]
-        hotspots = []
         keyword_matches = comments.filtered(
             lambda c: any(
                 kw in (c.comment or '').lower()
                 for kw in negative_keywords
             )
         )
+        hotspots = []
         if keyword_matches:
             hotspots.append({
                 'department': 'unknown',
@@ -109,7 +145,23 @@ class RolloutSentimentAI(models.AbstractModel):
                 'hotspot_detected': True,
                 'hotspot_confidence': 0.5,
             })
+        return hotspots
 
+    @api.model
+    def analyze_project(self, project):
+        """Run hotspot detection for a project and post a summary to chatter."""
+        hotspots = self.detect_hotspots(project)
+        if not hotspots:
+            return []
+        summary = '\n'.join(
+            '- {topic} ({department}, conf {confidence})'.format(
+                topic=h.get('topic', '?'),
+                department=h.get('department', 'unknown'),
+                confidence=h.get('confidence', 0.0))
+            for h in hotspots
+        )
+        project.message_post(
+            body='AI sentiment analysis detected hotspots:\n%s' % summary)
         return hotspots
 
     @api.model

@@ -31,6 +31,14 @@
         <field name="view_mode">list,form</field>
     </record>
 
+    <record id="action_rollout_sentiment" model="ir.actions.act_window">
+        <field name="name">Sentiment</field>
+        <field name="res_model">rollout.sentiment</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_rollout_sentiment_search"/>
+        <field name="context">{'search_default_baseline': 1}</field>
+    </record>
+
     <!-- Menus -->
     <menuitem id="menu_rollout_root"
               name="Rollout"
@@ -42,6 +50,12 @@
               parent="menu_rollout_root"
               sequence="10"
               action="action_rollout_project"/>
+
+    <menuitem id="menu_rollout_sentiment"
+              name="Sentiment"
+              parent="menu_rollout_root"
+              sequence="15"
+              action="action_rollout_sentiment"/>
 
     <menuitem id="menu_rollout_portfolio"
               name="Portfolio"

@@ -1,6 +1,6 @@
 {
     "name": "Rollout AI",
-    "version": "18.0.1.1.0",
+    "version": "18.0.1.2.0",
     "category": "Project",
     "summary": "AI-powered bridge between rollout and odoo-mind — executive summaries, graph, goal sync, nudge upgrade",
     "description": """
@@ -29,6 +29,7 @@ with Apache AGE and pgvector installed.
         "data/cron_sync_graph.xml",
         "views/summary_views.xml",
         "views/goal_sync_views.xml",
+        "views/project_views.xml",
         "views/sentiment_views.xml",
         "views/plan_review_views.xml",
         "views/nudge_views.xml",

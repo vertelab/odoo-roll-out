@@ -6,10 +6,14 @@
         <field name="arch" type="xml">
             <list>
                 <field name="create_date"/>
-                <field name="user_id"/>
+                <field name="project_id"/>
                 <field name="phase_id"/>
+                <field name="user_id"/>
+                <field name="dimension"/>
+                <field name="wave"/>
                 <field name="score" widget="priority"/>
                 <field name="comment"/>
+                <field name="hotspot_detected" widget="boolean_toggle" optional="show"/>
             </list>
         </field>
     </record>
@@ -21,14 +25,56 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="project_id"/>
-                        <field name="phase_id"/>
-                        <field name="user_id"/>
-                        <field name="score"/>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="phase_id"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="dimension"/>
+                            <field name="wave"/>
+                            <field name="score"/>
+                        </group>
+                    </group>
+                    <group string="Comment">
                         <field name="comment"/>
+                    </group>
+                    <group string="AI Hotspot Detection" invisible="not hotspot_detected">
+                        <field name="hotspot_detected"/>
+                        <field name="hotspot_department"/>
+                        <field name="hotspot_topic"/>
+                        <field name="hotspot_confidence" widget="float"/>
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="view_rollout_sentiment_search" model="ir.ui.view">
+        <field name="name">rollout.sentiment.search</field>
+        <field name="model">rollout.sentiment</field>
+        <field name="arch" type="xml">
+            <search string="Sentiment">
+                <field name="project_id"/>
+                <field name="user_id"/>
+                <field name="comment"/>
+                <filter name="hotspots" string="Hotspots"
+                        domain="[('hotspot_detected', '=', True)]"/>
+                <filter name="baseline" string="Baseline"
+                        domain="[('wave', '=', 'baseline')]"/>
+                <filter name="midline" string="Midline"
+                        domain="[('wave', '=', 'midline')]"/>
+                <filter name="endline" string="Endline"
+                        domain="[('wave', '=', 'endline')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_dimension" string="OBMS Dimension"
+                            context="{'group_by': 'dimension'}"/>
+                    <filter name="group_by_wave" string="Wave"
+                            context="{'group_by': 'wave'}"/>
+                    <filter name="group_by_project" string="Project"
+                            context="{'group_by': 'project_id'}"/>
+                </group>
+            </search>
         </field>
     </record>
 </odoo>
