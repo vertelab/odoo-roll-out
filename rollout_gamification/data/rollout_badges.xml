@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Auto-create rollout-specific badges on install -->
+
+    <!-- Challenge category for rollout badges -->
+    <record id="rollout_badge_category" model="gamification.badge">
+        <field name="name">Rollout Champion</field>
+        <field name="description">Awarded for completing the first rollout course</field>
+        <field name="level">bronze</field>
+    </record>
+
+    <!-- Note: Full badge auto-creation requires the gamification data model.
+         These are placeholder records that would be defined fully when
+         the gamification module's full data model is available. -->
+</odoo>

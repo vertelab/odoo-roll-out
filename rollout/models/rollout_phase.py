@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB (<https://vertel.se>).
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+"""Rollout Phase — ADKAR phase within a rollout project."""
 
-from datetime import date, timedelta
-
-from odoo import _, api, fields, models
+from odoo import models, fields, api, _
+from datetime import timedelta
 
 
 class RolloutPhase(models.Model):
@@ -13,99 +10,101 @@ class RolloutPhase(models.Model):
     _order = 'sequence, id'
 
     project_id = fields.Many2one(
-        'rollout.project', required=True, ondelete='cascade',
-    )
-    name = fields.Char(required=True, translate=True)
-    sequence = fields.Integer(default=10)
-    active = fields.Boolean(default=True)
+        'rollout.project', string='Project', required=True, ondelete='cascade')
+    sequence = fields.Integer('Sequence', default=10)
+    name = fields.Char('Phase Name', required=True)
 
-    # ── ADKAR ──
     adkar_phase = fields.Selection([
-        ('awareness', 'Awareness — Why?'),
-        ('desire', 'Desire — Want to?'),
-        ('knowledge', 'Knowledge — How to?'),
-        ('ability', 'Ability — Can do?'),
-        ('reinforcement', 'Reinforcement — Keep doing?'),
-    ], required=True)
+        ('awareness', 'Awareness'),
+        ('desire', 'Desire'),
+        ('knowledge', 'Knowledge'),
+        ('ability', 'Ability'),
+        ('reinforcement', 'Reinforcement'),
+    ], required=True, string='ADKAR Phase')
 
-    # ── Timeline ──
-    duration_days = fields.Integer(default=30, required=True)
-    date_start = fields.Date(
-        compute='_compute_dates', store=True, string='Start Date',
-    )
-    date_end = fields.Date(
-        compute='_compute_dates', store=True, string='End Date',
-    )
+    duration_days = fields.Integer('Duration (days)', default=14, required=True)
 
-    # ── Gate ──
+    # -- Gate --
     gate_type = fields.Selection([
         ('none', 'No Gate'),
-        ('approval', 'Approval Required'),
-        ('metric', 'Metric Threshold'),
-        ('completion', 'All Tasks Complete'),
-    ], default='completion')
-    gate_metric = fields.Float(string='Threshold Value')
-    gate_passed = fields.Boolean(default=False)
+        ('approval', 'Approval'),
+        ('metric', 'Metric'),
+        ('completion', 'Completion'),
+    ], default='none', string='Gate Type')
+    gate_metric = fields.Float('Gate Metric (%)', default=80.0)
+    gate_passed = fields.Boolean('Gate Passed', compute='_compute_gate_passed', store=True)
 
-    # ── Relations ──
-    task_ids = fields.One2many('rollout.task', 'phase_id', string='Tasks')
-    role_ids = fields.Many2many('rollout.role', string='Roles in this Phase')
+    # -- Computed dates --
+    date_start = fields.Date('Start Date', compute='_compute_dates', store=True)
+    date_end = fields.Date('End Date', compute='_compute_dates', store=True)
+    progress = fields.Float('Progress %', compute='_compute_progress')
 
-    # ── Computed ──
-    task_count = fields.Integer(compute='_compute_task_count', string='Tasks')
-    task_done_count = fields.Integer(compute='_compute_task_count', string='Done')
+    # -- Relations --
+    competency_target_ids = fields.One2many(
+        'rollout.competency.target', 'phase_id', string='Competency Targets')
+    sentiment_ids = fields.One2many(
+        'rollout.sentiment', 'phase_id', string='Sentiment Entries')
+    nudge_ids = fields.One2many(
+        'rollout.nudge', 'phase_id', string='Nudges')
+    org_change_ids = fields.One2many(
+        'rollout.org.change', 'phase_id', string='Organizational Changes')
+    preceding_phase_id = fields.Many2one(
+        'rollout.phase', string='Preceding Phase',
+        compute='_compute_preceding_phase', store=True)
 
-    @api.depends('task_ids', 'task_ids.state')
-    def _compute_task_count(self):
-        for p in self:
-            tasks = p.task_ids
-            p.task_count = len(tasks)
-            p.task_done_count = len(tasks.filtered(lambda t: t.state == 'done'))
+    @api.depends('sequence', 'project_id.phase_ids')
+    def _compute_preceding_phase(self):
+        for phase in self:
+            phases = phase.project_id.phase_ids.sorted('sequence')
+            idx = list(phases).index(phase) if phase in phases else -1
+            phase.preceding_phase_id = phases[idx - 1] if idx > 0 else False
+
+    @api.depends('gate_type', 'preceding_phase_id.gate_passed')
+    def _compute_gate_passed(self):
+        for phase in self:
+            if not phase.preceding_phase_id:
+                phase.gate_passed = True
+            elif phase.preceding_phase_id.gate_type == 'none':
+                phase.gate_passed = True
+            elif phase.preceding_phase_id.gate_type == 'completion':
+                phase.gate_passed = phase.preceding_phase_id.progress >= 100
+            else:
+                phase.gate_passed = False
 
     @api.depends('project_id.planning_mode', 'project_id.date_start',
-                  'project_id.date_launch', 'duration_days', 'sequence')
+                 'project_id.date_launch', 'duration_days', 'sequence',
+                 'project_id.phase_ids.sequence', 'project_id.phase_ids.duration_days')
     def _compute_dates(self):
-        """Compute phase dates based on project planning mode."""
         for phase in self:
             project = phase.project_id
-            if not project:
+            phases = project.phase_ids.sorted('sequence')
+            if not phases:
                 continue
 
-            if project.planning_mode == 'forward':
-                self._compute_forward(phase, project)
-            else:
-                self._compute_backward(phase, project)
+            if project.planning_mode == 'forward' and project.date_start:
+                current_date = project.date_start
+                for p in phases:
+                    p.date_start = current_date
+                    p.date_end = current_date + timedelta(days=p.duration_days - 1)
+                    current_date = p.date_end + timedelta(days=1)
 
-    def _compute_forward(self, phase, project):
-        """Forward: start from date_start, chain phases sequentially."""
-        if not project.date_start:
-            return
-        phases = project.phase_ids.filtered(
-            lambda p: p.sequence < phase.sequence
-        ).sorted('sequence')
-        if not phases:
-            phase.date_start = project.date_start
-        else:
-            last = phases[-1]
-            if last.date_end:
-                phase.date_start = last.date_end + timedelta(days=1)
-            else:
-                return
-        phase.date_end = phase.date_start + timedelta(days=phase.duration_days - 1)
+            elif project.planning_mode == 'backward' and project.date_launch:
+                current_date = project.date_launch
+                for p in reversed(phases):
+                    p.date_end = current_date
+                    p.date_start = current_date - timedelta(days=p.duration_days - 1)
+                    current_date = p.date_start - timedelta(days=1)
 
-    def _compute_backward(self, phase, project):
-        """Backward: start from date_launch, chain phases in reverse."""
-        if not project.date_launch:
-            return
-        phases = project.phase_ids.filtered(
-            lambda p: p.sequence > phase.sequence
-        ).sorted('sequence')
-        if not phases:
-            phase.date_end = project.date_launch
-        else:
-            next_phase = phases[0]
-            if next_phase.date_start:
-                phase.date_end = next_phase.date_start - timedelta(days=1)
+    def _compute_progress(self):
+        for phase in self:
+            today = fields.Date.context_today(self)
+            if not phase.date_start or not phase.date_end:
+                phase.progress = 0.0
+            elif today < phase.date_start:
+                phase.progress = 0.0
+            elif today > phase.date_end:
+                phase.progress = 100.0
             else:
-                return
-        phase.date_start = phase.date_end - timedelta(days=phase.duration_days - 1)
+                elapsed = (today - phase.date_start).days
+                total = (phase.date_end - phase.date_start).days + 1
+                phase.progress = min(100.0, round((elapsed / total) * 100, 1))

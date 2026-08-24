@@ -4,13 +4,14 @@
         <field name="name">rollout.nudge.tree</field>
         <field name="model">rollout.nudge</field>
         <field name="arch" type="xml">
-            <list string="Nudges">
+            <list>
                 <field name="name"/>
                 <field name="trigger_event"/>
                 <field name="nudge_type"/>
-                <field name="role_id"/>
                 <field name="phase_id"/>
+                <field name="role_id"/>
                 <field name="active"/>
+                <field name="enriched_by_ai"/>
             </list>
         </field>
     </record>
@@ -19,24 +20,31 @@
         <field name="name">rollout.nudge.form</field>
         <field name="model">rollout.nudge</field>
         <field name="arch" type="xml">
-            <form string="Nudge">
+            <form>
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="project_id"/>
-                        <field name="active"/>
-                    </group>
-                    <group>
-                        <field name="trigger_event"/>
-                        <field name="nudge_type"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="trigger_event"/>
+                            <field name="nudge_type"/>
+                            <field name="enriched_by_ai"/>
+                        </group>
                     </group>
                     <group string="Scope">
                         <field name="phase_id"/>
                         <field name="role_id"/>
                     </group>
-                    <group string="Message Template">
-                        <field name="template" widget="ace" options="{'mode': 'qweb'}"
-                               colspan="2"/>
+                    <group string="Template">
+                        <field name="template" widget="ace" options="{'mode': 'qweb'}"/>
+                    </group>
+                    <group name="measurement" string="Measurement" invisible="not enriched_by_ai">
+                        <field name="exposure_count"/>
+                        <field name="action_count"/>
+                        <field name="outcome_count"/>
                     </group>
                 </sheet>
             </form>

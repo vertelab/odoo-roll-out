@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Employee dashboard showing their personal rollout journey -->
+    <record id="view_rollout_internal_dashboard" model="ir.ui.view">
+        <field name="name">rollout.internal.dashboard</field>
+        <field name="model">rollout.project</field>
+        <field name="arch" type="xml">
+            <list string="My Rollouts">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="overall_progress" widget="progressbar"/>
+                <field name="date_launch"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_rollout_internal_dashboard" model="ir.actions.act_window">
+        <field name="name">My Rollout Journey</field>
+        <field name="res_model">rollout.project</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('perspective','=','internal')]</field>
+    </record>
+
+    <!-- Employee competency view -->
+    <record id="view_rollout_competency_target_employee" model="ir.ui.view">
+        <field name="name">rollout.competency.target.employee</field>
+        <field name="model">rollout.competency.target</field>
+        <field name="arch" type="xml">
+            <list string="My Competency Targets" decoration-warning="state=='at_risk'"
+                  decoration-success="state=='achieved'">
+                <field name="name"/>
+                <field name="level"/>
+                <field name="deadline"/>
+                <field name="progress_pct" widget="progressbar"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Employee nudges view -->
+    <record id="view_rollout_nudge_employee" model="ir.ui.view">
+        <field name="name">rollout.nudge.employee</field>
+        <field name="model">rollout.nudge</field>
+        <field name="arch" type="xml">
+            <list string="My Nudges">
+                <field name="name"/>
+                <field name="nudge_type"/>
+                <field name="trigger_event"/>
+            </list>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- External portfolio dashboard -->
+    <record id="view_rollout_external_dashboard" model="ir.ui.view">
+        <field name="name">rollout.external.dashboard</field>
+        <field name="model">rollout.project</field>
+        <field name="arch" type="xml">
+            <list string="Portfolio Dashboard" decoration-info="state=='draft'"
+                  decoration-success="state=='active'"
+                  decoration-muted="state in ('completed','cancelled','migrated')">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="manager_id"/>
+                <field name="state"/>
+                <field name="phase_ids" widget="many2many_tags"/>
+                <field name="overall_progress" widget="progressbar"/>
+                <field name="total_competency_gap"/>
+                <field name="total_risk_score"/>
+                <field name="sentiment_trend" widget="float"/>
+                <field name="date_launch"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action for external dashboard -->
+    <record id="action_rollout_external_dashboard" model="ir.actions.act_window">
+        <field name="name">Portfolio Dashboard</field>
+        <field name="res_model">rollout.project</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_rollout_external_dashboard"/>
+        <field name="domain">[('perspective','=','external')]</field>
+    </record>
+</odoo>

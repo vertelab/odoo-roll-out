@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_project_form_bridge" model="ir.ui.view">
+        <field name="name">rollout.project.form.bridge.project</field>
+        <field name="model">rollout.project</field>
+        <field name="inherit_id" ref="rollout.view_rollout_project_form"/>
+        <field name="arch" type="xml">
+            <group name="timeline" position="after">
+                <group string="Project Integration">
+                    <field name="project_id"/>
+                </group>
+            </group>
+            <notebook position="inside">
+                <page string="Tasks &amp; Timesheet">
+                    <field name="project_id" readonly="1"/>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

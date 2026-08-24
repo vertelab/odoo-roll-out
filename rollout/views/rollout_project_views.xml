@@ -1,56 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Project Tree -->
+    <!-- ================================================================ -->
+    <!-- rollout.project                                                   -->
+    <!-- ================================================================ -->
     <record id="view_rollout_project_tree" model="ir.ui.view">
         <field name="name">rollout.project.tree</field>
         <field name="model">rollout.project</field>
         <field name="arch" type="xml">
-            <list string="Rollout Projects">
+            <list decoration-info="state=='draft'" decoration-success="state=='active'"
+                  decoration-muted="state in ('completed','cancelled','migrated')">
                 <field name="name"/>
                 <field name="customer_id"/>
-                <field name="project_manager_id"/>
-                <field name="state" widget="badge"/>
-                <field name="planning_mode"/>
-                <field name="date_start"/>
+                <field name="manager_id"/>
+                <field name="state"/>
+                <field name="perspective"/>
+                <field name="overall_progress" widget="progressbar"/>
+                <field name="total_competency_gap"/>
+                <field name="total_risk_score"/>
                 <field name="date_launch"/>
-                <field name="phase_count"/>
             </list>
         </field>
     </record>
 
-    <!-- Project Kanban -->
-    <record id="view_rollout_project_kanban" model="ir.ui.view">
-        <field name="name">rollout.project.kanban</field>
-        <field name="model">rollout.project</field>
-        <field name="arch" type="xml">
-            <kanban class="o_kanban_mobile" sample="1">
-                <field name="name"/>
-                <field name="customer_id"/>
-                <field name="project_manager_id"/>
-                <field name="state"/>
-                <field name="date_launch"/>
-                <field name="phase_count"/>
-                <field name="risk_count"/>
-                <templates>
-                    <t t-name="card">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <field name="name" class="fw-bolder"/>
-                            <field name="state" widget="badge"/>
-                        </div>
-                        <field name="customer_id"/>
-                        <div class="text-muted">
-                            Phases: <field name="phase_count"/> |
-                            Risks: <field name="risk_count"/>
-                        </div>
-                        <field name="date_launch" widget="remaining_days"
-                               invisible="not date_launch"/>
-                    </t>
-                </templates>
-            </kanban>
-        </field>
-    </record>
-
-    <!-- Project Form -->
     <record id="view_rollout_project_form" model="ir.ui.view">
         <field name="name">rollout.project.form</field>
         <field name="model">rollout.project</field>
@@ -58,24 +29,27 @@
             <form string="Rollout Project">
                 <header>
                     <button name="action_activate" type="object" string="Activate"
-                            invisible="state != 'draft'" class="btn-primary"/>
+                            invisible="state not in ('draft')" class="btn-primary"/>
                     <button name="action_complete" type="object" string="Complete"
-                            invisible="state != 'active'" class="btn-success"/>
+                            invisible="state not in ('active')"/>
                     <button name="action_cancel" type="object" string="Cancel"
-                            invisible="state in ('completed', 'cancelled')"/>
+                            invisible="state not in ('draft', 'active')"/>
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
-                        <h1><field name="name" placeholder="Rollout Project Name"/></h1>
+                        <label for="name" string="Project Name"/>
+                        <h1><field name="name" placeholder="e.g. Acme Odoo Implementation"/></h1>
                     </div>
                     <group>
                         <group>
                             <field name="customer_id"/>
-                            <field name="project_manager_id"/>
+                            <field name="manager_id"/>
                             <field name="sponsor_id"/>
+                            <field name="team_member_ids" widget="many2many_tags"/>
                         </group>
-                        <group>
+                        <group name="timeline">
+                            <field name="perspective"/>
                             <field name="planning_mode"/>
                             <field name="date_start"
                                    required="planning_mode == 'forward'"/>
@@ -83,19 +57,41 @@
                                    required="planning_mode == 'backward'"/>
                         </group>
                     </group>
-                    <group string="Project Team">
-                        <field name="team_member_ids" widget="many2many_tags"/>
+                    <group string="Migration" invisible="migration_state == 'none'">
+                        <field name="migration_state"/>
+                        <field name="migrated_from" invisible="migration_state != 'imported'"/>
+                        <field name="migrated_at"/>
                     </group>
-
                     <notebook>
                         <page string="Phases">
-                            <field name="phase_ids" widget="one2many"/>
+                            <field name="phase_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="adkar_phase"/>
+                                    <field name="duration_days"/>
+                                    <field name="date_start"/>
+                                    <field name="date_end"/>
+                                    <field name="progress" widget="progressbar"/>
+                                    <field name="gate_type"/>
+                                    <field name="gate_passed" widget="boolean_toggle"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Competency Targets">
+                            <field name="competency_target_ids"/>
+                        </page>
+                        <page string="Roles">
+                            <field name="role_ids"/>
                         </page>
                         <page string="Risks">
                             <field name="risk_ids"/>
                         </page>
-                        <page string="Competency Targets">
-                            <field name="competency_target_ids"/>
+                        <page string="Sentiment">
+                            <field name="sentiment_ids"/>
+                        </page>
+                        <page string="Nudges">
+                            <field name="nudge_ids"/>
                         </page>
                         <page string="Org Changes">
                             <field name="org_change_ids"/>
@@ -103,21 +99,77 @@
                         <page string="Scenarios">
                             <field name="scenario_ids"/>
                         </page>
-                        <page string="Sentiment">
-                            <field name="sentiment_ids"/>
+                        <page string="Plan Reviews">
+                            <field name="plan_review_ids"/>
                         </page>
                     </notebook>
                 </sheet>
-                <chatter/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
 
-    <!-- Actions -->
-    <record id="action_rollout_project" model="ir.actions.act_window">
-        <field name="name">Rollout Projects</field>
-        <field name="res_model">rollout.project</field>
-        <field name="view_mode">kanban,list,form</field>
+    <record id="view_rollout_project_search" model="ir.ui.view">
+        <field name="name">rollout.project.search</field>
+        <field name="model">rollout.project</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="manager_id"/>
+                <filter name="active" string="Active" domain="[('state','=','active')]"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]"/>
+                <filter name="completed" string="Completed" domain="[('state','=','completed')]"/>
+                <separator/>
+                <filter name="external" string="External" domain="[('perspective','=','external')]"/>
+                <filter name="internal" string="Internal" domain="[('perspective','=','internal')]"/>
+                <group expand="0" string="Group By">
+                    <filter name="by_state" string="State" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter name="by_perspective" string="Perspective" domain="[]" context="{'group_by': 'perspective'}"/>
+                    <filter name="by_manager" string="Manager" domain="[]" context="{'group_by': 'manager_id'}"/>
+                </group>
+            </search>
+        </field>
     </record>
 
+    <record id="view_rollout_project_kanban" model="ir.ui.view">
+        <field name="name">rollout.project.kanban</field>
+        <field name="model">rollout.project</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="manager_id"/>
+                <field name="state"/>
+                <field name="overall_progress"/>
+                <field name="total_competency_gap"/>
+                <field name="total_risk_score"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <strong><field name="name"/></strong>
+                                <div><field name="customer_id"/></div>
+                                <div class="o_kanban_record_subtitle">
+                                    <field name="manager_id"/>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <span class="oe_kanban_bottom_left">
+                                        <field name="state"/>
+                                    </span>
+                                    <span class="oe_kanban_bottom_right">
+                                        Progress: <field name="overall_progress"/>%
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
 </odoo>

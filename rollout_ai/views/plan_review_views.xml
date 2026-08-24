@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend plan review with AI score suggestion button -->
+    <record id="view_rollout_plan_review_form_ai" model="ir.ui.view">
+        <field name="name">rollout.plan.review.form.ai</field>
+        <field name="model">rollout.plan.review</field>
+        <field name="inherit_id" ref="rollout.view_rollout_plan_review_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_ai_suggest_scores" type="object"
+                        string="🤖 AI Score Suggestions" class="btn-secondary"/>
+            </header>
+            <field name="criteria_score_ids" position="attributes">
+                <attribute name="string">Criteria Scores (AI suggestions in blue)</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

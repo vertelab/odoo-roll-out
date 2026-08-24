@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actions (defined BEFORE menus that reference them) -->
+    <record id="action_rollout_project" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">rollout.project</field>
+        <field name="view_mode">list,kanban,form</field>
+    </record>
+
+    <record id="action_rollout_portfolio" model="ir.actions.act_window">
+        <field name="name">Portfolio</field>
+        <field name="res_model">rollout.portfolio</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_rollout_role" model="ir.actions.act_window">
+        <field name="name">Roles</field>
+        <field name="res_model">rollout.role</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_rollout_nudge" model="ir.actions.act_window">
+        <field name="name">Nudges</field>
+        <field name="res_model">rollout.nudge</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_rollout_plan_review_criteria" model="ir.actions.act_window">
+        <field name="name">Plan Review Criteria</field>
+        <field name="res_model">rollout.plan.review.criteria</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_rollout_root"
+              name="Rollout"
+              sequence="70"
+              web_icon="rollout,static/description/icon.png"/>
+
+    <menuitem id="menu_rollout_project"
+              name="Projects"
+              parent="menu_rollout_root"
+              sequence="10"
+              action="action_rollout_project"/>
+
+    <menuitem id="menu_rollout_portfolio"
+              name="Portfolio"
+              parent="menu_rollout_root"
+              sequence="20"
+              action="action_rollout_portfolio"/>
+
+    <menuitem id="menu_rollout_config"
+              name="Configuration"
+              parent="menu_rollout_root"
+              sequence="90"/>
+
+    <menuitem id="menu_rollout_roles"
+              name="Roles"
+              parent="menu_rollout_config"
+              sequence="10"
+              action="action_rollout_role"/>
+
+    <menuitem id="menu_rollout_nudges"
+              name="Nudges"
+              parent="menu_rollout_config"
+              sequence="20"
+              action="action_rollout_nudge"/>
+
+    <menuitem id="menu_rollout_plan_review_criteria"
+              name="Plan Review Criteria"
+              parent="menu_rollout_config"
+              sequence="30"
+              action="action_rollout_plan_review_criteria"/>
+</odoo>

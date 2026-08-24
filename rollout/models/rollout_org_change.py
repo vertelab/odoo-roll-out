@@ -1,50 +1,43 @@
-# -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB (<https://vertel.se>).
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+"""Rollout Organizational Change — model org changes during rollout."""
 
-from odoo import _, api, fields, models
+from odoo import models, fields
 
 
 class RolloutOrgChange(models.Model):
-    _name = 'rollout.org_change'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'Organizational Change (Rollout)'
-    _order = 'phase_id, name'
+    _name = 'rollout.org.change'
+    _description = 'Rollout Organizational Change'
+    _order = 'create_date desc'
 
     project_id = fields.Many2one(
-        'rollout.project', required=True, ondelete='cascade',
-    )
-    phase_id = fields.Many2one('rollout.phase', string='Phase')
-    name = fields.Char(required=True, tracking=True)
-    active = fields.Boolean(default=True)
+        'rollout.project', string='Project', required=True, ondelete='cascade')
+    phase_id = fields.Many2one(
+        'rollout.phase', string='Phase', ondelete='set null')
 
-    # ── Change Type ──
+    name = fields.Char('Change Name', required=True)
     change_type = fields.Selection([
         ('new_dept', 'New Department'),
         ('restructure', 'Restructure'),
-        ('new_role', 'New Role / Position'),
+        ('new_role', 'New Role'),
         ('merge', 'Merge'),
         ('split', 'Split'),
-        ('reporting', 'New Reporting Line'),
+        ('reporting', 'Reporting Change'),
         ('other', 'Other'),
-    ], required=True, string='Change Type', tracking=True)
+    ], required=True, string='Change Type')
+    description = fields.Text('Description')
 
-    # ── HR References (added by rollout_hr bridge when hr module is installed) ──
-    # department_id, job_ids, employee_ids are added by rollout_hr bridge
-    department_name = fields.Char(string='Department Name',
-        help='Department name. When hr module is installed, rollout_hr bridge adds department_id field.')
-
-    description = fields.Html(translate=True)
-
-    # ── Status ──
-    status = fields.Selection([
+    state = fields.Selection([
         ('planned', 'Planned'),
         ('in_progress', 'In Progress'),
-        ('done', 'Completed'),
-    ], default='planned', tracking=True)
+        ('done', 'Done'),
+    ], default='planned', required=True)
 
-    def action_start(self):
-        self.status = 'in_progress'
-
-    def action_done(self):
-        self.status = 'done'
+    # Optional HR links
+    department_ids = fields.Many2many(
+        'hr.department', 'rollout_org_change_department_rel', 'org_change_id', 'department_id',
+        string='Affected Departments')
+    job_ids = fields.Many2many(
+        'hr.job', 'rollout_org_change_job_rel', 'org_change_id', 'job_id',
+        string='Affected Jobs')
+    employee_ids = fields.Many2many(
+        'hr.employee', 'rollout_org_change_employee_rel', 'org_change_id', 'employee_id',
+        string='Affected Employees')

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend project form with AI settings (defined in rollout_ai) -->
+    <record id="view_rollout_project_form_goal_sync" model="ir.ui.view">
+        <field name="name">rollout.project.form.goal.sync</field>
+        <field name="model">rollout.project</field>
+        <field name="inherit_id" ref="rollout.view_rollout_project_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <!-- External: consultant configures AI settings before migration -->
+                <page string="Goal Sync Settings" invisible="perspective != 'external'">
+                    <group>
+                        <field name="executive_summary_frequency"/>
+                        <field name="goal_sync_frequency"/>
+                        <field name="goal_auto_create"/>
+                        <field name="goal_require_pm_approval"/>
+                        <field name="goal_notify_on_create"/>
+                    </group>
+                </page>
+                <!-- Internal: customer PM adjusts after migration -->
+                <page string="Goal Sync" invisible="perspective != 'internal'">
+                    <group>
+                        <field name="goal_sync_frequency"/>
+                        <field name="goal_auto_create"/>
+                        <field name="goal_require_pm_approval" invisible="goal_auto_create"/>
+                        <field name="goal_notify_on_create" invisible="not goal_auto_create"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

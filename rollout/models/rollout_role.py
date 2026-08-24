@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB (<https://vertel.se>).
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+"""Rollout Role — role-specific requirements for rollout projects."""
 
-from odoo import _, api, fields, models
+from odoo import models, fields
 
 
 class RolloutRole(models.Model):
@@ -10,38 +8,57 @@ class RolloutRole(models.Model):
     _description = 'Rollout Role'
     _order = 'name'
 
-    name = fields.Char(required=True, translate=True)
-    active = fields.Boolean(default=True)
-    description = fields.Html(translate=True)
+    project_id = fields.Many2one(
+        'rollout.project', string='Project', required=True, ondelete='cascade')
+    name = fields.Char('Role Name', required=True)
+    description = fields.Text('Description')
 
-    # ── Competency Requirements (core: uses hr.skill when hr_skills installed) ──
-    # Note: course_ids and badge_ids are added by bridge modules
-    # (rollout_lms adds course_ids → slide.channel,
-    #  rollout_gamification adds badge_ids → gamification.badge)
+    # Required skills for this role
+    required_skill_ids = fields.One2many(
+        'rollout.role.skill', 'role_id', string='Required Skills')
 
-    # ── Task Templates ──
+    # Required courses (via website_slides / LMS bridge)
+    required_course_ids = fields.Many2many(
+        'slide.channel', 'rollout_role_required_course_rel', 'role_id', 'course_id',
+        string='Required Courses',
+        help='LMS courses required for this role')
+
+    # Required badges (via gamification bridge)
+    required_badge_ids = fields.Many2many(
+        'gamification.badge', 'rollout_role_required_badge_rel', 'role_id', 'badge_id',
+        string='Required Badges',
+        help='Gamification badges required for this role')
+
+    # Task templates for onboarding
     task_template_ids = fields.One2many(
-        'rollout.task.template', 'role_id', string='Task Templates',
-    )
+        'rollout.role.task.template', 'role_id',
+        string='Task Templates')
+
+    # Assigned employees
+    employee_ids = fields.Many2many(
+        'hr.employee', 'rollout_role_employee_rel', 'role_id', 'employee_id',
+        string='Assigned Employees')
+
+    # Phase scoping
+    phase_ids = fields.Many2many(
+        'rollout.phase', 'rollout_role_phase_rel', 'role_id', 'phase_id',
+        string='Active in Phases')
 
 
-class RolloutTaskTemplate(models.Model):
-    _name = 'rollout.task.template'
-    _description = 'Rollout Task Template'
-    _order = 'sequence, id'
+class RolloutRoleSkill(models.Model):
+    _name = 'rollout.role.skill'
+    _description = 'Role Skill Requirement'
 
-    name = fields.Char(required=True, translate=True)
-    role_id = fields.Many2one(
-        'rollout.role', required=True, ondelete='cascade',
-    )
-    sequence = fields.Integer(default=10)
-    description = fields.Html(translate=True)
-    deadline_days = fields.Integer(
-        default=7, string='Days After Assignment',
-    )
-    priority = fields.Selection([
-        ('0', 'Low'),
-        ('1', 'Medium'),
-        ('2', 'High'),
-        ('3', 'Urgent'),
-    ], default='1')
+    role_id = fields.Many2one('rollout.role', required=True, ondelete='cascade')
+    skill_id = fields.Many2one('hr.skill', string='Skill', required=True)
+    required_level = fields.Char('Required Level')
+
+
+class RolloutRoleTaskTemplate(models.Model):
+    _name = 'rollout.role.task.template'
+    _description = 'Role Task Template'
+
+    role_id = fields.Many2one('rollout.role', required=True, ondelete='cascade')
+    name = fields.Char('Task Name', required=True)
+    description = fields.Text('Description')
+    sequence = fields.Integer('Sequence', default=10)

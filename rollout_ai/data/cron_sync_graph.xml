@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Cron: Sync rollout graph every 5 minutes -->
+    <record id="cron_sync_rollout_graph" model="ir.cron">
+        <field name="name">Rollout AI: Sync Graph</field>
+        <field name="model_id" ref="rollout.model_rollout_project"/>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Cron: Generate executive summaries (daily, checks per-project frequency) -->
+    <record id="cron_rollout_executive_summary" model="ir.cron">
+        <field name="name">Rollout AI: Executive Summaries</field>
+        <field name="model_id" ref="rollout.model_rollout_project"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_generate_executive_summaries()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- Cron: Sync goals (daily, checks per-project frequency) -->
+    <record id="cron_rollout_goal_sync" model="ir.cron">
+        <field name="name">Rollout AI: Goal Sync</field>
+        <field name="model_id" ref="rollout_ai.model_rollout_goal_sync"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_rollout_goal_sync()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

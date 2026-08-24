@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend sentiment with AI hotspot detection -->
+    <record id="view_rollout_sentiment_form_ai" model="ir.ui.view">
+        <field name="name">rollout.sentiment.form.ai</field>
+        <field name="model">rollout.sentiment</field>
+        <field name="inherit_id" ref="rollout.view_rollout_sentiment_form"/>
+        <field name="arch" type="xml">
+            <group position="after">
+                <group string="AI Hotspot Detection" invisible="not hotspot_detected">
+                    <field name="hotspot_detected"/>
+                    <field name="hotspot_department"/>
+                    <field name="hotspot_topic"/>
+                    <field name="hotspot_confidence" widget="float"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

@@ -1,55 +1,56 @@
-# -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB (<https://vertel.se>).
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+"""Rollout Scenario — what-if analysis for rollout timelines."""
 
-from odoo import _, api, fields, models
+from odoo import models, fields
 
 
 class RolloutScenario(models.Model):
     _name = 'rollout.scenario'
     _description = 'Rollout Scenario'
-    _order = 'name'
+    _order = 'create_date'
 
     project_id = fields.Many2one(
-        'rollout.project', required=True, ondelete='cascade',
-    )
-    name = fields.Char(required=True)
-    description = fields.Text()
+        'rollout.project', string='Project', required=True, ondelete='cascade')
 
-    # ── Overrides ──
-    override_date_start = fields.Date(string='Override Start Date')
-    override_date_launch = fields.Date(string='Override Go-Live Date')
+    name = fields.Char('Scenario Name', required=True)
+    description = fields.Text('Description')
 
-    # ── Phase Adjustments ──
-    phase_adjustment_ids = fields.One2many(
-        'rollout.scenario.phase_adjustment', 'scenario_id',
-        string='Phase Adjustments',
-    )
+    # Overrides
+    override_date_start = fields.Date('Override Start Date')
+    override_date_launch = fields.Date('Override Go-Live Date')
 
-    # ── Assessment ──
+    # Assessment
     risk_level = fields.Selection([
-        ('low', 'Low Risk'),
-        ('medium', 'Medium Risk'),
-        ('high', 'High Risk'),
-    ])
-    adoption_estimate = fields.Float(string='Estimated Adoption (%)')
-    cost_estimate = fields.Monetary(string='Estimated Cost')
+        ('low', 'Low'),
+        ('medium', 'Medium'),
+        ('high', 'High'),
+    ], string='Risk Level')
+    adoption_estimate = fields.Float(
+        'Adoption Estimate %', default=80.0)
+    cost_estimate = fields.Monetary(
+        'Cost Estimate', currency_field='currency_id')
     currency_id = fields.Many2one(
-        'res.currency', default=lambda self: self.env.company.currency_id,
-    )
+        'res.currency', string='Currency',
+        default=lambda self: self.env.company.currency_id)
 
-    # ── Selection ──
-    selected = fields.Boolean(default=False, string='Selected Scenario')
+    selected = fields.Boolean('Selected as Active Plan')
+
+    # Phase overrides
+    phase_override_ids = fields.One2many(
+        'rollout.scenario.phase.override', 'scenario_id',
+        string='Phase Overrides')
+
+    def action_select(self):
+        self.project_id.scenario_ids.write({'selected': False})
+        self.write({'selected': True})
 
 
-class RolloutScenarioPhaseAdjustment(models.Model):
-    _name = 'rollout.scenario.phase_adjustment'
-    _description = 'Scenario Phase Duration Adjustment'
-    _order = 'sequence'
+class RolloutScenarioPhaseOverride(models.Model):
+    _name = 'rollout.scenario.phase.override'
+    _description = 'Scenario Phase Duration Override'
 
     scenario_id = fields.Many2one(
-        'rollout.scenario', required=True, ondelete='cascade',
-    )
-    phase_id = fields.Many2one('rollout.phase', required=True, string='Phase')
-    override_duration_days = fields.Integer(string='Override Duration (Days)')
-    sequence = fields.Integer(related='phase_id.sequence', store=True)
+        'rollout.scenario', required=True, ondelete='cascade')
+    phase_id = fields.Many2one(
+        'rollout.phase', string='Phase', required=True)
+    override_duration_days = fields.Integer(
+        'Override Duration (days)', required=True)

@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Portfolio view is a client action template -->
-    <record id="view_rollout_portfolio_template" model="ir.ui.view">
-        <field name="name">rollout.portfolio.view</field>
-        <field name="model">hr.employee</field>
-        <field name="inherit_id" ref="hr.view_employee_form"/>
+    <record id="view_rollout_portfolio_tree" model="ir.ui.view">
+        <field name="name">rollout.portfolio.tree</field>
+        <field name="model">rollout.portfolio</field>
         <field name="arch" type="xml">
-            <xpath expr="//notebook" position="inside">
-                <page string="Odoo Portfolio" name="rollout_portfolio">
-                    <group string="Adoption Summary" name="adoption_group">
-                        <label string="Portfolio data is available through the Rollout Portfolio API."/>
-                        <label string="Use rollout.portfolio.get_employee_portfolio() to retrieve structured data."/>
+            <list>
+                <field name="name"/>
+                <field name="manager_id"/>
+                <field name="active_project_count"/>
+                <field name="total_competency_gap"/>
+                <field name="total_risk_score"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_portfolio_form" model="ir.ui.view">
+        <field name="name">rollout.portfolio.form</field>
+        <field name="model">rollout.portfolio</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="manager_id"/>
                     </group>
-                </page>
-            </xpath>
+                    <group string="Projects">
+                        <field name="project_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Metrics">
+                        <field name="active_project_count"/>
+                        <field name="total_competency_gap"/>
+                        <field name="avg_sentiment"/>
+                        <field name="total_risk_score"/>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 </odoo>

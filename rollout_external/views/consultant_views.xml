@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend project form with external-specific tabs -->
+    <record id="view_rollout_project_form_external" model="ir.ui.view">
+        <field name="name">rollout.project.form.external</field>
+        <field name="model">rollout.project</field>
+        <field name="inherit_id" ref="rollout.view_rollout_project_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Recommendations" invisible="perspective != 'external'">
+                    <field name="recommendation"/>
+                </page>
+                <page string="Internal Notes" invisible="perspective != 'external'">
+                    <field name="internal_notes"/>
+                </page>
+            </notebook>
+            <header position="inside">
+                <button name="action_mark_migrated" type="object"
+                        string="Migrate to Customer"
+                        invisible="state not in ('active', 'completed')"
+                        class="btn-secondary"/>
+            </header>
+        </field>
+    </record>
+
+    <!-- Scenario comparison view for offer preparation -->
+    <record id="view_rollout_scenario_comparison" model="ir.ui.view">
+        <field name="name">rollout.scenario.comparison</field>
+        <field name="model">rollout.scenario</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="override_date_launch"/>
+                <field name="risk_level"/>
+                <field name="adoption_estimate" widget="progressbar"/>
+                <field name="cost_estimate" widget="monetary"/>
+                <field name="selected"/>
+            </list>
+        </field>
+    </record>
+</odoo>

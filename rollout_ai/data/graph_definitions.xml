@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================================ -->
+    <!-- RolloutProject node + edges                                      -->
+    <!-- ================================================================ -->
+    <record id="graph_node_rollout_project" model="graph.node.definition">
+        <field name="model_id" ref="rollout.model_rollout_project"/>
+        <field name="graph_label">RolloutProject</field>
+        <field name="name_field">name</field>
+        <field name="node_properties">{
+            "state": "state",
+            "perspective": "perspective",
+            "progress": "overall_progress",
+            "competency_gap": "total_competency_gap",
+            "risk_score": "total_risk_score"
+        }</field>
+        <field name="edge_definitions">[{
+            "type": "FOR_CUSTOMER",
+            "target_label": "OdooPartner",
+            "target_id_field": "customer_id"
+        }, {
+            "type": "MANAGED_BY",
+            "target_label": "User",
+            "target_id_field": "manager_id"
+        }]</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!-- RolloutPhase node + edges                                         -->
+    <!-- ================================================================ -->
+    <record id="graph_node_rollout_phase" model="graph.node.definition">
+        <field name="model_id" ref="rollout.model_rollout_phase"/>
+        <field name="graph_label">RolloutPhase</field>
+        <field name="name_field">name</field>
+        <field name="node_properties">{
+            "adkar_phase": "adkar_phase",
+            "gate_type": "gate_type",
+            "gate_passed": "gate_passed",
+            "progress": "progress"
+        }</field>
+        <field name="edge_definitions">[{
+            "type": "HAS_PHASE",
+            "target_label": "RolloutProject",
+            "target_id_field": "project_id",
+            "direction": "incoming"
+        }, {
+            "type": "PRECEDES",
+            "target_label": "RolloutPhase",
+            "target_id_field": "preceding_phase_id"
+        }]</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!-- CompetencyTarget node + edges                                     -->
+    <!-- ================================================================ -->
+    <record id="graph_node_competency_target" model="graph.node.definition">
+        <field name="model_id" ref="rollout.model_rollout_competency_target"/>
+        <field name="graph_label">CompetencyTarget</field>
+        <field name="name_field">name</field>
+        <field name="node_properties">{
+            "target_count": "target_count",
+            "current_count": "current_count",
+            "gap": "gap",
+            "state": "state",
+            "deadline": "deadline"
+        }</field>
+        <field name="edge_definitions">[{
+            "type": "HAS_COMPETENCY_TARGET",
+            "target_label": "RolloutPhase",
+            "target_id_field": "phase_id"
+        }, {
+            "type": "TARGETS_ROLE",
+            "target_label": "RolloutRole",
+            "target_id_field": "role_id"
+        }]</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!-- RolloutRole node + edges                                          -->
+    <!-- ================================================================ -->
+    <record id="graph_node_rollout_role" model="graph.node.definition">
+        <field name="model_id" ref="rollout.model_rollout_role"/>
+        <field name="graph_label">RolloutRole</field>
+        <field name="name_field">name</field>
+        <field name="node_properties">{}</field>
+        <field name="edge_definitions">[]</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!-- RolloutRisk node + edges                                          -->
+    <!-- ================================================================ -->
+    <record id="graph_node_rollout_risk" model="graph.node.definition">
+        <field name="model_id" ref="rollout.model_rollout_risk"/>
+        <field name="graph_label">RolloutRisk</field>
+        <field name="name_field">name</field>
+        <field name="node_properties">{
+            "risk_score": "risk_score",
+            "state": "state",
+            "probability": "probability",
+            "impact": "impact"
+        }</field>
+        <field name="edge_definitions">[{
+            "type": "HAS_RISK",
+            "target_label": "RolloutProject",
+            "target_id_field": "project_id",
+            "direction": "incoming"
+        }, {
+            "type": "IN_PHASE",
+            "target_label": "RolloutPhase",
+            "target_id_field": "phase_id"
+        }, {
+            "type": "OWNED_BY",
+            "target_label": "User",
+            "target_id_field": "owner_id"
+        }]</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!-- RolloutSentiment node + edges                                     -->
+    <!-- ================================================================ -->
+    <record id="graph_node_rollout_sentiment" model="graph.node.definition">
+        <field name="model_id" ref="rollout.model_rollout_sentiment"/>
+        <field name="graph_label">RolloutSentiment</field>
+        <field name="name_field">id</field>
+        <field name="node_properties">{
+            "score": "score"
+        }</field>
+        <field name="edge_definitions">[{
+            "type": "HAS_SENTIMENT",
+            "target_label": "RolloutProject",
+            "target_id_field": "project_id",
+            "direction": "incoming"
+        }, {
+            "type": "IN_PHASE",
+            "target_label": "RolloutPhase",
+            "target_id_field": "phase_id"
+        }, {
+            "type": "FROM_USER",
+            "target_label": "User",
+            "target_id_field": "user_id"
+        }]</field>
+        <field name="active">True</field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!-- RolloutOrgChange node + edges                                     -->
+    <!-- ================================================================ -->
+    <record id="graph_node_rollout_org_change" model="graph.node.definition">
+        <field name="model_id" ref="rollout.model_rollout_org_change"/>
+        <field name="graph_label">RolloutOrgChange</field>
+        <field name="name_field">name</field>
+        <field name="node_properties">{
+            "change_type": "change_type",
+            "state": "state"
+        }</field>
+        <field name="edge_definitions">[{
+            "type": "HAS_ORG_CHANGE",
+            "target_label": "RolloutPhase",
+            "target_id_field": "phase_id"
+        }]</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

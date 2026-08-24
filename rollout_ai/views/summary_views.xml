@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend project form with executive summary tab -->
+    <record id="view_rollout_project_form_summary" model="ir.ui.view">
+        <field name="name">rollout.project.form.summary</field>
+        <field name="model">rollout.project</field>
+        <field name="inherit_id" ref="rollout.view_rollout_project_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="AI Summary">
+                    <button name="generate_executive_summary" type="object"
+                            string="Generate Summary Now" class="btn-primary"/>
+                    <p class="oe_grey">Latest AI-generated executive summary will appear here.</p>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

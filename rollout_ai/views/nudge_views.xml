@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend nudge form with measurement fields -->
+    <record id="view_rollout_nudge_form_ai" model="ir.ui.view">
+        <field name="name">rollout.nudge.form.ai</field>
+        <field name="model">rollout.nudge</field>
+        <field name="inherit_id" ref="rollout.view_rollout_nudge_form"/>
+        <field name="arch" type="xml">
+            <group name="measurement" position="attributes">
+                <attribute name="attrs"/>
+            </group>
+            <group name="measurement" position="after">
+                <group string="Measurement" colspan="4">
+                    <field name="exposure_count"/>
+                    <field name="action_count"/>
+                    <field name="outcome_count"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Employee-facing project form -->
+    <record id="view_rollout_project_form_internal" model="ir.ui.view">
+        <field name="name">rollout.project.form.internal</field>
+        <field name="model">rollout.project</field>
+        <field name="inherit_id" ref="rollout.view_rollout_project_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="My Goals" invisible="perspective != 'internal'">
+                    <!-- Placeholder for personal goals linked to this rollout -->
+                    <p>Your personal development goals for this rollout will appear here.</p>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

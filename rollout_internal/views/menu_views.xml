@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_rollout_internal_dashboard"
+              name="My Rollout Journey"
+              parent="rollout.menu_rollout_root"
+              sequence="5"
+              action="action_rollout_internal_dashboard"/>
+</odoo>

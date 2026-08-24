@@ -4,16 +4,17 @@
         <field name="name">rollout.competency.target.tree</field>
         <field name="model">rollout.competency.target</field>
         <field name="arch" type="xml">
-            <list string="Competency Targets" decoration-danger="state == 'missed'"
-                  decoration-warning="state == 'at_risk'" decoration-success="state == 'achieved'">
+            <list decoration-warning="state=='at_risk'" decoration-success="state=='achieved'"
+                  decoration-danger="state=='missed'">
                 <field name="name"/>
-                <field name="skill_name"/>
+                <field name="phase_id"/>
+                <field name="role_id"/>
                 <field name="target_count"/>
                 <field name="current_count"/>
                 <field name="gap"/>
                 <field name="progress_pct" widget="progressbar"/>
-                <field name="state" widget="badge"/>
-                <field name="deadline_date"/>
+                <field name="deadline"/>
+                <field name="state"/>
             </list>
         </field>
     </record>
@@ -22,31 +23,29 @@
         <field name="name">rollout.competency.target.form</field>
         <field name="model">rollout.competency.target</field>
         <field name="arch" type="xml">
-            <form string="Competency Target">
-                <header>
-                    <field name="state" widget="statusbar"/>
-                </header>
+            <form>
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="project_id"/>
-                        <field name="phase_id"/>
-                        <field name="role_id"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="phase_id"/>
+                            <field name="role_id"/>
+                        </group>
+                        <group>
+                            <field name="skill_id"/>
+                            <field name="level"/>
+                            <field name="target_count"/>
+                            <field name="current_count"/>
+                            <field name="deadline"/>
+                        </group>
                     </group>
-                    <group string="Target">
-                        <field name="skill_name"/>
-                        <field name="target_count"/>
-                        <field name="deadline_date"/>
-                    </group>
-                    <group string="Progress">
-                        <field name="current_count"/>
+                    <group>
                         <field name="gap"/>
                         <field name="progress_pct" widget="progressbar"/>
+                        <field name="state"/>
                     </group>
-                    <separator string="Strategies"/>
-                    <field name="strategy_ids"/>
                 </sheet>
-                <chatter/>
             </form>
         </field>
     </record>

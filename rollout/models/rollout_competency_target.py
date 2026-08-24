@@ -1,86 +1,74 @@
-# -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel Sverige AB (<https://vertel.se>).
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+"""Rollout Competency Target — skill targets for a rollout phase."""
 
-from datetime import date
-
-from odoo import _, api, fields, models
+from odoo import models, fields, api, _
 
 
 class RolloutCompetencyTarget(models.Model):
     _name = 'rollout.competency.target'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Rollout Competency Target'
-    _order = 'deadline_date, sequence'
+    _order = 'deadline, id'
 
     project_id = fields.Many2one(
-        'rollout.project', required=True, ondelete='cascade',
-    )
-    phase_id = fields.Many2one('rollout.phase', string='Phase')
-    role_id = fields.Many2one('rollout.role', string='Role')
-    name = fields.Char(required=True, string='Target Description', tracking=True)
-    sequence = fields.Integer(default=10)
+        'rollout.project', string='Project', required=True, ondelete='cascade')
+    phase_id = fields.Many2one(
+        'rollout.phase', string='Phase', ondelete='set null')
+    role_id = fields.Many2one(
+        'rollout.role', string='Target Role', ondelete='set null')
 
-    # ── What ──
-    skill_name = fields.Char(string='Skill Name', required=True,
-        help='Competency name (e.g. "Odoo CRM", "ISO 9001 Awareness"). '
-             'When hr_skills module is installed, rollout_hr bridge adds skill_id field.')
-    target_count = fields.Integer(required=True, default=1, string='Target Count')
-
-    # ── When ──
-    deadline_date = fields.Date(required=True, string='Deadline', tracking=True)
-
-    # ── Progress (computed) ──
+    name = fields.Char('Target Name', required=True)
+    skill_id = fields.Many2one(
+        'hr.skill', string='Skill', help='Competency skill from HR')
+    level = fields.Char('Required Level')
+    target_count = fields.Integer('Target Count', default=1, required=True)
     current_count = fields.Integer(
-        compute='_compute_current_count', store=True, string='Current Count',
-    )
-    gap = fields.Integer(compute='_compute_gap', store=True, string='Gap')
-    progress_pct = fields.Float(compute='_compute_gap', store=True, string='Progress %')
+        'Current Count', compute='_compute_current_count', store=True)
+    gap = fields.Integer('Gap', compute='_compute_gap', store=True)
+    progress_pct = fields.Float(
+        'Progress %', compute='_compute_progress_pct', store=True)
+    deadline = fields.Date('Deadline', required=True)
 
-    # ── State (computed) ──
     state = fields.Selection([
         ('planned', 'Planned'),
         ('in_progress', 'In Progress'),
-        ('achieved', 'Achieved'),
         ('at_risk', 'At Risk'),
+        ('achieved', 'Achieved'),
         ('missed', 'Missed'),
-    ], compute='_compute_state', store=True, string='Status')
+    ], compute='_compute_state', store=True, default='planned')
 
-    # ── Strategies ──
-    strategy_ids = fields.One2many(
-        'rollout.competency.strategy', 'target_id', string='Strategies',
-    )
-
-    @api.depends('skill_name')
+    @api.depends('skill_id', 'level')
     def _compute_current_count(self):
-        """Count employees with this skill. Requires hr_skills module."""
-        EmployeeSkill = self.env.get('hr.employee.skill')
-        if not EmployeeSkill:
-            for target in self:
-                target.current_count = 0
-            return
         for target in self:
-            domain = [('skill_id.name', '=ilike', target.skill_name)]
-            target.current_count = EmployeeSkill.search_count(domain)
+            if not target.skill_id:
+                target.current_count = 0
+                continue
+            # Count employees with this skill at or above the required level
+            # Requires hr_skill module integration
+            # For standalone: count is maintained manually or via bridges
+            target.current_count = 0  # Base value, updated by bridges
 
     @api.depends('target_count', 'current_count')
     def _compute_gap(self):
         for target in self:
-            target.gap = target.target_count - target.current_count
-            target.progress_pct = (
-                target.current_count / target.target_count * 100
-                if target.target_count else 0.0
-            )
+            target.gap = max(0, target.target_count - target.current_count)
 
-    @api.depends('gap', 'deadline_date', 'current_count')
+    @api.depends('target_count', 'current_count')
+    def _compute_progress_pct(self):
+        for target in self:
+            target.progress_pct = (
+                min(100.0, (target.current_count / target.target_count) * 100)
+                if target.target_count > 0 else 100.0)
+
+    @api.depends('gap', 'deadline', 'current_count')
     def _compute_state(self):
-        today = date.today()
+        today = fields.Date.context_today(self)
         for target in self:
             if target.gap <= 0:
                 target.state = 'achieved'
-            elif target.deadline_date and target.deadline_date < today:
+            elif target.deadline and target.deadline < today:
                 target.state = 'missed'
-            elif target.deadline_date and (target.deadline_date - today).days <= 14:
+            elif (target.deadline
+                  and (target.deadline - today).days <= 14
+                  and target.gap > 0):
                 target.state = 'at_risk'
             elif target.current_count > 0:
                 target.state = 'in_progress'
