@@ -11,17 +11,13 @@
                 <field name="ai_hotspot"/>
                 <templates>
                     <t t-name="card">
-                        <div class="oe_kanban_card">
-                            <div class="oe_kanban_content">
-                                <strong><field name="user_id"/></strong>
-                                <div>Score: <field name="score"/> / 5</div>
-                                <div class="text-muted"><field name="free_text"/></div>
-                                <div>
-                                    <field name="ai_hotspot" widget="boolean_toggle"
-                                           invisible="ai_hotspot == False"/>
-                                </div>
-                            </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <field name="user_id" class="fw-bolder"/>
+                            <span>Score: <field name="score"/> / 5</span>
                         </div>
+                        <field name="free_text" class="text-muted"/>
+                        <field name="ai_hotspot" widget="boolean_toggle"
+                               invisible="ai_hotspot == False"/>
                     </t>
                 </templates>
             </kanban>

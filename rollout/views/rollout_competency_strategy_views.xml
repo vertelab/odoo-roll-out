@@ -20,8 +20,8 @@
                         <field name="cost_total" widget="monetary"/>
                     </group>
                     <group string="Links">
-                                                <field name="course_name"/>
-                                            </group>
+                        <field name="course_name"/>
+                    </group>
                 </sheet>
             </form>
         </field>

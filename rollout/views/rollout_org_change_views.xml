@@ -32,8 +32,6 @@
                         <field name="project_id"/>
                         <field name="phase_id"/>
                     </group>
-                    <group string="References">
-                                                                                            </group>
                     <group string="Description">
                         <field name="description"/>
                     </group>

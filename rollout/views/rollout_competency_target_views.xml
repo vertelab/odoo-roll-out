@@ -34,7 +34,8 @@
                         <field name="role_id"/>
                     </group>
                     <group string="Target">
-                        <field name="skill_name"/>                        <field name="target_count"/>
+                        <field name="skill_name"/>
+                        <field name="target_count"/>
                         <field name="deadline_date"/>
                     </group>
                     <group string="Progress">

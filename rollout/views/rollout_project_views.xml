@@ -33,21 +33,17 @@
                 <field name="risk_count"/>
                 <templates>
                     <t t-name="card">
-                        <div class="oe_kanban_card">
-                            <div class="oe_kanban_content">
-                                <strong><field name="name"/></strong>
-                                <div><field name="customer_id"/></div>
-                                <div>
-                                    <field name="state" widget="badge"/>
-                                    <field name="date_launch" widget="remaining_days"
-                                           invisible="not date_launch"/>
-                                </div>
-                                <div class="text-muted">
-                                    Phases: <field name="phase_count"/> |
-                                    Risks: <field name="risk_count"/>
-                                </div>
-                            </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <field name="name" class="fw-bolder"/>
+                            <field name="state" widget="badge"/>
                         </div>
+                        <field name="customer_id"/>
+                        <div class="text-muted">
+                            Phases: <field name="phase_count"/> |
+                            Risks: <field name="risk_count"/>
+                        </div>
+                        <field name="date_launch" widget="remaining_days"
+                               invisible="not date_launch"/>
                     </t>
                 </templates>
             </kanban>
@@ -93,7 +89,7 @@
 
                     <notebook>
                         <page string="Phases">
-                            <field name="phase_ids" widget="one2many_list"/>
+                            <field name="phase_ids" widget="one2many"/>
                         </page>
                         <page string="Risks">
                             <field name="risk_ids"/>
