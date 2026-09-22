@@ -8,7 +8,7 @@
     'summary': 'BI dashboards for rollout adoption, sentiment, risk, and readiness.',
     'category': 'Productivity',
     'author': 'Vertel Sverige AB',
-    'website': 'https://vertel.se',
+    'website': 'https://vertel.se/apps/odoo-roll-out/rollout_dashboard',
     'license': 'AGPL-3',
     'depends': ['rollout', 'dashboard_vrtl'],
     'data': [

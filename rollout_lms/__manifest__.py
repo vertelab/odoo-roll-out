@@ -8,7 +8,7 @@
     'summary': 'eLearning course integration for rollout roles and competency targets.',
     'category': 'Productivity',
     'author': 'Vertel Sverige AB',
-    'website': 'https://vertel.se',
+    'website': 'https://vertel.se/apps/odoo-roll-out/rollout_lms',
     'license': 'AGPL-3',
     'depends': ['rollout', 'website_slides'],
     'data': [

@@ -21,7 +21,7 @@ Fully optional — rollout works fine without this module. Requires ai_agent_cor
 with Apache AGE and pgvector installed.
 """,
     "author": "Vertel AB",
-    "website": "https://vertel.se",
+    "website": "https://vertel.se/apps/odoo-roll-out/rollout_ai",
     "depends": ["rollout", "ai_agent_core"],
     "data": [
         "security/ir.model.access.csv",

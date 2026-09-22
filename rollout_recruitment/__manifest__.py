@@ -1,4 +1,5 @@
 {
+    'website': 'https://vertel.se/apps/odoo-roll-out/rollout_recruitment',
     "name": "Rollout Recruitment Bridge",
     "version": "18.0.1.0.0",
     "category": "Project",

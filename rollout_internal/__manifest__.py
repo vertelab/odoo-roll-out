@@ -21,7 +21,7 @@ Features:
   rollout_hr_evaluation (requires hr_evaluation)
 """,
     "author": "Vertel AB",
-    "website": "https://vertel.se",
+    "website": "https://vertel.se/apps/odoo-roll-out/rollout_internal",
     "depends": ["rollout"],
     "data": [
         "security/ir.model.access.csv",

@@ -18,7 +18,7 @@ Features:
 - Auto-activates rollout_project bridge for timesheet/Gantt integration
 """,
     "author": "Vertel AB",
-    "website": "https://vertel.se",
+    "website": "https://vertel.se/apps/odoo-roll-out/rollout_external",
     "depends": ["rollout"],
     "data": [
         "security/ir.model.access.csv",

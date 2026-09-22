@@ -26,7 +26,7 @@ via bridge modules (rollout_project, rollout_gamification, rollout_recruitment,
 rollout_hr_evaluation, rollout_ai).
 """,
     "author": "Vertel AB",
-    "website": "https://vertel.se",
+    "website": "https://vertel.se/apps/odoo-roll-out/rollout",
     "depends": ["base", "mail", "hr"],
     "data": [
         "security/ir.model.access.csv",

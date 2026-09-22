@@ -8,7 +8,7 @@
     'summary': 'ISO management system integration for rollout projects.',
     'category': 'Productivity',
     'author': 'Vertel Sverige AB',
-    'website': 'https://vertel.se',
+    'website': 'https://vertel.se/apps/odoo-roll-out/rollout_mgmtsystem',
     'license': 'AGPL-3',
     'depends': ['rollout', 'mgmtsystem'],
     'data': [

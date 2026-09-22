@@ -19,7 +19,7 @@ measurement (baseline -> target state):
 Fully optional - requires both rollout and survey.
 """,
     "author": "Vertel AB",
-    "website": "https://vertel.se",
+    "website": "https://vertel.se/apps/odoo-roll-out/rollout_survey",
     "depends": ["rollout", "survey"],
     "data": [
         "views/survey_survey_views.xml",

@@ -1,4 +1,5 @@
 {
+    'website': 'https://vertel.se/apps/odoo-roll-out/rollout_project',
     "name": "Rollout Project Bridge",
     "version": "18.0.1.1.0",
     "category": "Project",
