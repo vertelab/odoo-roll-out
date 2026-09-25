@@ -5,7 +5,18 @@
 {
     'name': 'Rollout — LMS Bridge',
     'version': '18.0.1.0.0',
-    'summary': 'eLearning course integration for rollout roles and competency targets.',
+    'summary': 'ELearning course integration for rollout roles and competency targets.',
+    'description': '''
+Rollout — LMS Bridge
+====================
+
+    ELearning course integration for rollout roles and competency targets.
+
+    Features:
+
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on slide.channel.
+    ''',
     'category': 'Productivity',
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-roll-out/rollout_lms',

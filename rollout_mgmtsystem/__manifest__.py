@@ -6,6 +6,17 @@
     'name': 'Rollout — Management System Bridge',
     'version': '18.0.1.0.0',
     'summary': 'ISO management system integration for rollout projects.',
+    'description': '''
+Rollout — Management System Bridge
+==================================
+
+    ISO management system integration for rollout projects.
+
+    Features:
+
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on rollout.phase, rollout.project.
+    ''',
     'category': 'Productivity',
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-roll-out/rollout_mgmtsystem',
