@@ -1,6 +1,6 @@
 """Extend rollout.nudge with internal delivery channels."""
 
-from odoo import models, api
+from odoo import models, api, fields
 
 
 class RolloutNudge(models.Model):

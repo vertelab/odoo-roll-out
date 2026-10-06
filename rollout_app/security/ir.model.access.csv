@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+module_user,"Module: read",model_rollout_module,base.group_user,1,0,0,0
+module_manager,"Module: manage",model_rollout_module,group_rollout_app_manager,1,1,1,1
+module_line_user,"Module Line: read",model_rollout_module_line,base.group_user,1,0,0,0
+module_line_manager,"Module Line: manage",model_rollout_module_line,group_rollout_app_manager,1,1,1,1
+app_user,"App: read",model_rollout_app,base.group_user,1,0,0,0
+app_manager,"App: manage",model_rollout_app,group_rollout_app_manager,1,1,1,1
+app_line_user,"App Line: read and complete",model_rollout_app_line,base.group_user,1,1,0,0
+app_line_manager,"App Line: manage",model_rollout_app_line,group_rollout_app_manager,1,1,1,1
+push_subscription_user,"Push Subscription: own",model_rollout_push_subscription,base.group_user,1,1,1,1

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Module types -->
+    <record id="view_rollout_module_tree" model="ir.ui.view">
+        <field name="name">rollout.module.list</field>
+        <field name="model">rollout.module</field>
+        <field name="arch" type="xml">
+            <list string="Module Types">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="spawn_mode"/>
+                <field name="recurrence"/>
+                <field name="allowed_model"/>
+                <field name="clear_mode"/>
+                <field name="default_points"/>
+                <field name="default_coins"/>
+                <field name="line_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_module_form" model="ir.ui.view">
+        <field name="name">rollout.module.form</field>
+        <field name="model">rollout.module</field>
+        <field name="arch" type="xml">
+            <form string="Module Type">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. Course"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="spawn_mode"/>
+                            <field name="recurrence"
+                                   invisible="spawn_mode != 'periodic'"/>
+                            <field name="lead_time"
+                                   invisible="spawn_mode != 'periodic'"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="allowed_model"/>
+                            <field name="clear_mode"/>
+                            <field name="default_points"/>
+                            <field name="default_coins"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rollout_module" model="ir.actions.act_window">
+        <field name="name">Module Types</field>
+        <field name="res_model">rollout.module</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Module lines -->
+    <record id="view_rollout_module_line_tree" model="ir.ui.view">
+        <field name="name">rollout.module.line.list</field>
+        <field name="model">rollout.module.line</field>
+        <field name="arch" type="xml">
+            <list string="Lines">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="module_id"/>
+                <field name="module_rel"/>
+                <field name="state"/>
+                <field name="points"/>
+                <field name="coins"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="app_line_count"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_module_line_form" model="ir.ui.view">
+        <field name="name">rollout.module.line.form</field>
+        <field name="model">rollout.module.line</field>
+        <field name="arch" type="xml">
+            <form string="Line">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="e.g. CRM chapter 3"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="module_id"/>
+                            <field name="module_rel"/>
+                            <field name="state"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="points"/>
+                            <field name="coins"/>
+                            <field name="badge_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group string="Period">
+                        <group>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                        </group>
+                        <group>
+                            <field name="publish_at"/>
+                            <field name="remind_at"/>
+                        </group>
+                    </group>
+                    <group string="Achievement gating">
+                        <group>
+                            <field name="source_line_id"/>
+                            <field name="unlock_badge_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Participants" name="participants">
+                            <field name="app_line_ids" readonly="1">
+                                <list>
+                                    <field name="user_id"/>
+                                    <field name="state"/>
+                                    <field name="locked"/>
+                                    <field name="done_at"/>
+                                    <field name="points_earned"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_rollout_module_line" model="ir.actions.act_window">
+        <field name="name">Lines</field>
+        <field name="res_model">rollout.module.line</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

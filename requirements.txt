@@ -1,0 +1,54 @@
+# rollout_app — Python dependencies
+#
+# Installeras av repo_apply (salt odoo.repo_apply) som samlar alla
+# /usr/share/odoo-*/requirements.txt, deduplicerar och installerar med
+# `--ignore-installed` — dvs pip loser om HELA beroendetradet fran scratch.
+#
+# VIKTIGT — varfor taken nedan finns (driftlardom fran odoo-ai):
+#   `--ignore-installed` betyder att ett paket utan tak kan NEDGRADERA nagot
+#   som redan fungerar i drift. `cryptography` ar kankans exempel: pyOpenSSL
+#   22.0.0 kraver cryptography<39 medan Odoo 18 kraver >=49. Att installera
+#   nagot som drar in cryptography utan tak gav:
+#       AttributeError: module 'lib' has no attribute 'GEN_EMAIL'
+#   -> bruten TLS i hela Odoo.
+#
+#   pywebpush 2.5.0 kraver `cryptography>=47.0.0`. Drift har 50.0.0, sa
+#   kravet ar uppfyllt — men utan tak skulle pip anda kunna valja en annan
+#   patch. Taken nedan later dem vara kvar pa det drift redan kor.
+#
+#   Samma logik for aiohttp/requests/urllib3: de ar redan installerade av
+#   odoo-ai och delas av flera moduler. Vi tar dem inte over.
+
+# ── Web Push (rollout_app) ───────────────────────────────────────────────
+# pywebpush: skickar Web Push fran Odoo (cron). Importeras skyddat i
+#   rollout_app/models/rollout_push_subscription.py — saknas paketet
+#   loggas en varning och pushen hoppas over, modulen laddar anda.
+pywebpush>=2.5,<3
+
+# py-vapid: VAPID-signering. Kommer med pywebpush men namns explicit sa
+#   verify_requirements.py kan importera den.
+py-vapid>=1.9,<2
+
+# http-ece: kryptering av push-payload (RFC 8291).
+http-ece>=1.1,<2
+
+# ── Delade paket — las vid driftens nuvarande versioner ──────────────────
+# Dessa drogs in av odoo-ai och anvands av flera moduler. Utan tak skulle
+# `--ignore-installed` kunna rulla dem framat och bryta nagot annat.
+cryptography>=50.0.0
+aiohttp>=3.14,<3.15
+requests>=2.34,<3
+urllib3>=2.7,<3
+certifi
+charset-normalizer>=3.4,<4
+idna>=3.18,<4
+cffi>=2.1,<3
+typing-extensions>=4.16,<5
+attrs>=26.1,<27
+multidict>=6.7,<7
+yarl>=1.24,<2
+frozenlist>=1.8,<2
+aiosignal>=1.4,<2
+propcache>=0.5,<1
+aiohappyeyeballs>=2.7,<3
+pycparser>=3.0,<4

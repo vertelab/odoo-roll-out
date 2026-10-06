@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_rollout_push_subscription_tree" model="ir.ui.view">
+        <field name="name">rollout.push.subscription.list</field>
+        <field name="model">rollout.push.subscription</field>
+        <field name="arch" type="xml">
+            <list string="Push Subscriptions" create="false">
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="user_agent"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_rollout_push_subscription" model="ir.actions.act_window">
+        <field name="name">Push Subscriptions</field>
+        <field name="res_model">rollout.push.subscription</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="view_rollout_push_queue_tree" model="ir.ui.view">
+        <field name="name">rollout.push.queue.list</field>
+        <field name="model">rollout.push.queue</field>
+        <field name="arch" type="xml">
+            <list string="Push Queue" create="false">
+                <field name="create_date"/>
+                <field name="user_id"/>
+                <field name="title"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_rollout_push_queue" model="ir.actions.act_window">
+        <field name="name">Push Queue</field>
+        <field name="res_model">rollout.push.queue</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

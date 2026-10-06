@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Participant lines -->
+    <record id="view_rollout_app_line_tree" model="ir.ui.view">
+        <field name="name">rollout.app.line.list</field>
+        <field name="model">rollout.app.line</field>
+        <field name="arch" type="xml">
+            <list string="My Lines" create="false"
+                  decoration-muted="state == 'done'"
+                  decoration-danger="state == 'open' and period_end and period_end &lt; current_date">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="state"/>
+                <field name="locked"/>
+                <field name="points"/>
+                <field name="coins"/>
+                <field name="period_start"/>
+                <field name="period_end"/>
+                <field name="done_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_rollout_app_line_form" model="ir.ui.view">
+        <field name="name">rollout.app.line.form</field>
+        <field name="model">rollout.app.line</field>
+        <field name="arch" type="xml">
+            <form string="Line" create="false">
+                <header>
+                    <button name="action_mark_done" type="object"
+                            string="Mark Done" class="btn-primary"
+                            invisible="state == 'done' or locked"/>
+                    <button name="action_unlock" type="object"
+                            string="Unlock"
+                            invisible="not locked"
+                            groups="rollout_app.group_rollout_app_manager"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                            <field name="module_id" readonly="1"/>
+                            <field name="locked" readonly="1"/>
+                            <field name="done_at"/>
+                        </group>
+                        <group>
+                            <field name="points_earned"/>
+                            <field name="coins_earned"/>
+                            <field name="badge_id" readonly="1"/>
+                            <field name="source_ref" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Period" readonly="1">
+                        <group>
+                            <field name="period_start"/>
+                            <field name="period_end"/>
+                        </group>
+                        <group>
+                            <field name="publish_at"/>
+                            <field name="remind_at"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_rollout_app_line_search" model="ir.ui.view">
+        <field name="name">rollout.app.line.search</field>
+        <field name="model">rollout.app.line</field>
+        <field name="arch" type="xml">
+            <search string="Lines">
+                <field name="name"/>
+                <field name="user_id"/>
+                <filter name="filter_open" string="Open"
+                        domain="[('state', '=', 'open')]"/>
+                <filter name="filter_done" string="Done"
+                        domain="[('state', '=', 'done')]"/>
+                <filter name="filter_locked" string="Locked"
+                        domain="[('locked', '=', True)]"/>
+                <separator/>
+                <filter name="filter_missed" string="Missed"
+                        domain="[('state', '=', 'open'), ('period_end', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_user" string="User"
+                            context="{'group_by': 'user_id'}"/>
+                    <filter name="group_module" string="Module"
+                            context="{'group_by': 'module_id'}"/>
+                    <filter name="group_state" string="Status"
+                            context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_rollout_app_line" model="ir.actions.act_window">
+        <field name="name">My Lines</field>
+        <field name="res_model">rollout.app.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_filter_open': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Nothing to do right now</p>
+            <p>Your tasks will appear here when a period is published.</p>
+        </field>
+    </record>
+</odoo>

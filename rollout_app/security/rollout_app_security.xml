@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="module_category_rollout_app" model="ir.module.category">
+        <field name="name">Rollout App</field>
+        <field name="sequence">163</field>
+    </record>
+
+    <!-- App Manager: configures modules, lines and periods. -->
+    <record id="group_rollout_app_manager" model="res.groups">
+        <field name="name">Rollout App Manager</field>
+        <field name="category_id" ref="module_category_rollout_app"/>
+        <field name="comment">May configure app modules, lines and periods.</field>
+    </record>
+
+    <!-- Participants see only their own lines. -->
+    <record id="rule_app_line_own" model="ir.rule">
+        <field name="name">App line: own only</field>
+        <field name="model_id" ref="model_rollout_app_line"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="rule_app_line_manager" model="ir.rule">
+        <field name="name">App line: all (manager)</field>
+        <field name="model_id" ref="model_rollout_app_line"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('group_rollout_app_manager'))]"/>
+    </record>
+
+    <!-- Push subscriptions are private. -->
+    <record id="rule_push_subscription_own" model="ir.rule">
+        <field name="name">Push subscription: own only</field>
+        <field name="model_id" ref="model_rollout_push_subscription"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

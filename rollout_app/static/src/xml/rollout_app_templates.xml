@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <!-- A small banner offering to enable notifications, and explaining the
+         iOS home-screen requirement when relevant. -->
+    <t t-name="rollout_app.PushPrompt">
+        <div t-if="state.show" class="o_rollout_app_push_prompt alert alert-info d-flex align-items-center gap-2 m-2">
+            <i class="fa fa-bell"/>
+            <span t-esc="state.message"/>
+            <button class="btn btn-sm btn-primary ms-auto"
+                    t-on-click="onEnable">Aktivera</button>
+            <button class="btn btn-sm btn-link" t-on-click="onDismiss">Senare</button>
+        </div>
+    </t>
+</templates>

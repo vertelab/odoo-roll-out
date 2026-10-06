@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Participant-facing: my app -->
+    <menuitem id="menu_rollout_app_root"
+              name="My Rollout"
+              web_icon="rollout_app,static/description/icon.png"
+              sequence="84"/>
+
+    <menuitem id="menu_rollout_app_my_lines"
+              name="My Tasks"
+              parent="menu_rollout_app_root"
+              action="action_rollout_app_line"
+              sequence="10"/>
+
+    <!-- Manager-facing: configuration -->
+    <menuitem id="menu_rollout_app_config"
+              name="Configuration"
+              parent="menu_rollout_app_root"
+              sequence="90"
+              groups="group_rollout_app_manager"/>
+
+    <menuitem id="menu_rollout_app_apps"
+              name="Apps"
+              parent="menu_rollout_app_config"
+              action="action_rollout_app"
+              sequence="10"
+              groups="group_rollout_app_manager"/>
+
+    <menuitem id="menu_rollout_app_modules"
+              name="Module Types"
+              parent="menu_rollout_app_config"
+              action="action_rollout_module"
+              sequence="20"
+              groups="group_rollout_app_manager"/>
+
+    <menuitem id="menu_rollout_app_lines"
+              name="Lines"
+              parent="menu_rollout_app_config"
+              action="action_rollout_module_line"
+              sequence="30"
+              groups="group_rollout_app_manager"/>
+
+    <menuitem id="menu_rollout_app_push"
+              name="Push"
+              parent="menu_rollout_app_config"
+              sequence="40"
+              groups="group_rollout_app_manager"/>
+
+    <menuitem id="menu_rollout_app_push_subscriptions"
+              name="Subscriptions"
+              parent="menu_rollout_app_push"
+              action="action_rollout_push_subscription"
+              sequence="10"
+              groups="group_rollout_app_manager"/>
+
+    <menuitem id="menu_rollout_app_push_queue"
+              name="Queue"
+              parent="menu_rollout_app_push"
+              action="action_rollout_push_queue"
+              sequence="20"
+              groups="group_rollout_app_manager"/>
+</odoo>
