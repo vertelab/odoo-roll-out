@@ -23,7 +23,7 @@ Two bridges, two currencies, one completion event. The currency module stays
 independent: it knows only that someone credited coins and where from. This
 bridge knows nothing about the shop.
 """,
-    "author": "Vertel AB",
+    "author": "Vertel Sverige AB",
     "website": "https://vertel.se/apps/odoo-roll-out/rollout_app_coin",
     "license": "LGPL-3",
     "depends": ["rollout_app", "gamification_coin"],

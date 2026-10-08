@@ -30,7 +30,7 @@ opened by gamification).
 
 Also provides a PWA shell (manifest, service worker) and Web Push delivery.
 """,
-    "author": "Vertel AB",
+    "author": "Vertel Sverige AB",
     "website": "https://vertel.se/apps/odoo-roll-out/rollout_app",
     "license": "LGPL-3",
     "depends": ["rollout", "rollout_internal", "web"],

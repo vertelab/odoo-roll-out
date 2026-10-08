@@ -20,7 +20,7 @@ Features:
   rollout_recruitment (requires hr_recruitment)
   rollout_hr_evaluation (requires hr_evaluation)
 """,
-    "author": "Vertel AB",
+    "author": "Vertel Sverige AB",
     "website": "https://vertel.se/apps/odoo-roll-out/rollout_internal",
     "depends": ["rollout"],
     "data": [

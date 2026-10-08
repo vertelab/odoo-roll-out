@@ -17,7 +17,7 @@ Features:
 - Migration API for transferring projects to customer instances
 - Auto-activates rollout_project bridge for timesheet/Gantt integration
 """,
-    "author": "Vertel AB",
+    "author": "Vertel Sverige AB",
     "website": "https://vertel.se/apps/odoo-roll-out/rollout_external",
     "depends": ["rollout"],
     "data": [

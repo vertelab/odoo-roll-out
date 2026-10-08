@@ -20,7 +20,7 @@ Connects rollout projects to odoo-mind (ai_agent_core) for AI-powered features:
 Fully optional — rollout works fine without this module. Requires ai_agent_core
 with Apache AGE and pgvector installed.
 """,
-    "author": "Vertel AB",
+    "author": "Vertel Sverige AB",
     "website": "https://vertel.se/apps/odoo-roll-out/rollout_ai",
     "depends": ["rollout", "ai_agent_core"],
     "data": [

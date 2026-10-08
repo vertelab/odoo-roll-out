@@ -18,7 +18,7 @@ only reports completions to it. Two things happen when a line is completed:
 Badges are never created here. ``rollout.module.line.badge_id`` is a display
 link only.
 """,
-    "author": "Vertel AB",
+    "author": "Vertel Sverige AB",
     "website": "https://vertel.se/apps/odoo-roll-out/rollout_app_gamification",
     "license": "LGPL-3",
     "depends": ["rollout_app", "gamification"],

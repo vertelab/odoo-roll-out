@@ -25,7 +25,7 @@ Fully standalone — only depends on base and mail. All optional integrations
 via bridge modules (rollout_project, rollout_gamification, rollout_recruitment,
 rollout_hr_evaluation, rollout_ai).
 """,
-    "author": "Vertel AB",
+    "author": "Vertel Sverige AB",
     "website": "https://vertel.se/apps/odoo-roll-out/rollout",
     "depends": ["base", "mail", "hr"],
     "data": [
