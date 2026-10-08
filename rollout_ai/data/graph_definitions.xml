@@ -20,8 +20,9 @@
             "target_id_field": "customer_id"
         }, {
             "type": "MANAGED_BY",
-            "target_label": "User",
-            "target_id_field": "manager_id"
+            "target_label": "OdooPartner",
+            "target_id_field": "manager_id",
+            "target_id_via": "partner_id"
         }]</field>
         <field name="active">True</field>
     </record>
@@ -114,8 +115,9 @@
             "target_id_field": "phase_id"
         }, {
             "type": "OWNED_BY",
-            "target_label": "User",
-            "target_id_field": "owner_id"
+            "target_label": "OdooPartner",
+            "target_id_field": "owner_id",
+            "target_id_via": "partner_id"
         }]</field>
         <field name="active">True</field>
     </record>
@@ -141,8 +143,9 @@
             "target_id_field": "phase_id"
         }, {
             "type": "FROM_USER",
-            "target_label": "User",
-            "target_id_field": "user_id"
+            "target_label": "OdooPartner",
+            "target_id_field": "user_id",
+            "target_id_via": "partner_id"
         }]</field>
         <field name="active">True</field>
     </record>
